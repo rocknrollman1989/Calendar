@@ -1,58 +1,77 @@
 import React from 'react'
-import moment from 'moment'
+
 
 
 export default class CalendarTabble extends React.Component{
 
 
+
 render() {
+    const { dateFns, todayState } = this.props
 
-    const { moment, weekDays } = this.props
-    let day = 0;
-    let lastDayOfMonth = moment.endOf('month').format('DD')
-    let firstDayOfMonth = moment.startOf('month').add(day, 'day').format('D')
-    
-    console.log(firstDayOfMonth, lastDayOfMonth)
-    
-    let rows = [];
-    let days = [];
+    const weekDaysFormat = 'dddd'
+    const weekDaysName = []
 
-    while (day<=lastDayOfMonth){
+    const DaysName = () => {
 
-        for(let i=0; i<7; i++){
-            console.log(day)
-            days.push(
-                <td key={day}>{day}</td>
-            )
-            day++;
-        }
-        rows.push(
-            <tr key={day}>{days}</tr>
+        let startWeek = dateFns.startOfWeek(todayState, {weekStartsOn: 1})
+
+            for(let i=0; i<7; i++){ 
+                weekDaysName.push(
+                <td key={i}>
+                    {dateFns.format(dateFns.addDays(startWeek, i), weekDaysFormat)} 
+                </td>
+                )
+            }
+        return (
+            <tr>{weekDaysName}</tr>
         )
-        days  = []
     }
 
 
-    // const weekDay = weekDays.map((day) => {
-    //     return(
-    //         <td key={day}>{day}</td>
-    //     )
-    // })
+    const monthStart = dateFns.startOfMonth(todayState)
+    const monthEnd = dateFns.endOfMonth(monthStart)
+    const startDate = dateFns.startOfWeek(monthStart, {weekStartsOn: 1})
+    const endDate = dateFns.endOfWeek(monthEnd)
 
-  
+    const dateFormat = 'D'
+    const rows = []
 
-    return(
-        <>
-        <table>
-            <tbody>
-                {/* <tr>
-                {weekDay}
-                </tr> */}
-                {rows}
-            </tbody>
-        </table>
-        </>
-    )
+    let days = [];
+    let day = startDate;
+    let ourDate = "";
+
+    const CalendarTable = () =>{
+
+        while (day <= endDate) {
+            for (let i = 0; i < 7; i++) {
+              ourDate = dateFns.format(day, dateFormat);
+              days.push(
+                <td key={day} >
+                  <span className="number">{ourDate}</span>
+                </td>
+              );
+              day = dateFns.addDays(day, 1);
+            }
+            rows.push(
+            <tr  key={day} >
+                {days}
+            </tr>
+            );
+            days = [];
+          }
+        return <table><tbody>{rows}</tbody></table>
+    }
+        return(
+            <>
+            <table className='calendar_name_of_day'>
+                <tbody>
+                    <DaysName/>
+                </tbody>
+            </table>
+            <CalendarTable/>
+            </>
+        )
 }
 
 }

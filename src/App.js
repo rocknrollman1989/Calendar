@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import CalendarSelecter from './components/calendarSelect'
 import CalendarTabble from './components/calendarTabble'
-import moment from 'moment'
+import dateFns from "date-fns";
 
 
 class App extends Component {
 
 state = {
-todayDate: moment()
+todayDate: new Date()
 
 }
 
@@ -18,26 +18,24 @@ componentDidMount = () => {
 prevMonth = () =>{
 
   this.setState({
-    todayDate: this.state.todayDate.add(-1, "months")
+    todayDate: dateFns.subMonths(this.state.todayDate, 1)
   })
 }
 
 nextMonth = () =>{
   this.setState({
-    todayDate: this.state.todayDate.add(1, "months")
+    todayDate: dateFns.addMonths(this.state.todayDate, 1)
   })
 }
 
 
   render() {
 
-      let weekDays = moment.weekdays();
-
     return (
     <div className="calendar-wrapper">
       {/* <CalendarHeader/> */}
-      <CalendarSelecter props={this.state} prevMonth={this.prevMonth} nextMonth={this.nextMonth}/>
-      <CalendarTabble moment={this.state.todayDate} weekDays={weekDays} />
+      <CalendarSelecter dateFns={dateFns} todayState={this.state.todayDate} prevMonth={this.prevMonth} nextMonth={this.nextMonth}/>
+      <CalendarTabble dateFns={dateFns} todayState={this.state.todayDate}/>
     </div>
     );
   }

@@ -1,23 +1,17 @@
 import React from 'react'
 
- const CalendarSelecter = ({props, prevMonth, nextMonth}) => {
-    const { todayDate } = props
-
+ const CalendarSelecter = ({dateFns, prevMonth, nextMonth, todayState}) => {
     const showFormat = 'YYYY - MMMM'
-
-    // console.log(props, prevMonth, nextMonth)
+ 
 
     return(
-       
-
         <>
             <div className="calendar-months-select">
                 <button onClick={() => {prevMonth()}}>prev</button>
-                <div> {todayDate.format(showFormat)}</div>
+                <div> {dateFns.format(todayState, showFormat)}</div>
                 <button onClick={() => {nextMonth()}}>next</button>
             </div>
         </>
-
     )
 }
 
