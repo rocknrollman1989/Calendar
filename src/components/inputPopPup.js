@@ -1,9 +1,6 @@
 import React from 'react'
 
 const InputPopPup = ({closePopup, onCorrectData, props, handleChange, onDeletData}) => {
-  
-console.log(props.ourEvent)
-  
 
     return(
         <div className='popup-container'>

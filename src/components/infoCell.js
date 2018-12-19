@@ -2,11 +2,28 @@ import React from 'react'
 import InputPopPup from './inputPopPup'
 
 class InfoCell extends React.Component{
-    state = {
-        ourEvent: '',
-        namesOfPeople: '',
-        ourDescription: '' ,
-        popupIsOpen: false
+    constructor(props){
+        super(props)
+       
+         this.state = {
+            ourEvent: '',
+            namesOfPeople: '',
+            ourDescription: '' ,
+            keyDateInfo: '',
+            popupIsOpen: false
+        }
+    }
+    componentDidMount = () => {
+        const { dateFns, day } = this.props
+        let keyDate = dateFns.format(day,'MDD')
+        let returnObj = JSON.parse(localStorage.getItem(keyDate))
+            if(returnObj){
+                this.setState({ ourEvent: returnObj.ourEvent,
+                                namesOfPeople: returnObj.namesOfPeople,
+                                ourDescription: returnObj.ourDescription,
+                                keyDateInfo: keyDate,
+                                })
+            }
     }
 
     closePopup = () => {
@@ -22,26 +39,44 @@ class InfoCell extends React.Component{
 
     }
     onDeletData = () => {
+        const { dateFns, day } = this.props
+        let keyDate = dateFns.format(day,'MDD')
         this.setState({ ourEvent: '',
                         namesOfPeople: '',
                         ourDescription: '',
+                        keyDateInfo: '',
                         popupIsOpen: false})
+        delete localStorage[keyDate]
+        
     }
 
     onCorrectData = () => {
-        this.setState({ ourEvent: this.state.ourEvent,
-                        namesOfPeople: this.state.namesOfPeople,
-                        ourDescription: this.state.ourDescription,
+        const { ourEvent, namesOfPeople, ourDescription } = this.state
+        const { dateFns, day } = this.props
+        let keyDate = dateFns.format(day,'MDD')
+
+        this.setState({ ourEvent: ourEvent,
+                        namesOfPeople: namesOfPeople,
+                        ourDescription: ourDescription,
+                        keyDateInfo: keyDate,
                         popupIsOpen: false})
-            
+        
+        let saveEventCalendar = {
+            ourEvent: ourEvent, 
+            namesOfPeople: namesOfPeople, 
+            ourDescription: ourDescription
+        }
+
+        let memoryObj = JSON.stringify(saveEventCalendar)
+
+        localStorage.setItem( keyDate , memoryObj )
     }
 
     render() {
 
-        const { ourDate, day } = this.props
+        const { ourDate } = this.props
         const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state
-        console.log(this.props)
-
+        
         return(
             <div >
             <span onClick={this.openPopup}>{ourDate}</span>

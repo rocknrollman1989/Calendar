@@ -42,7 +42,7 @@ import InfoCell from './infoCell'
               ourDate = dateFns.format(day, dateFormat);
               days.push(
                 <td key={day} >
-                  <InfoCell ourDate={ourDate} day={day}/>
+                  <InfoCell ourDate={ourDate} dateFns={dateFns} day={day}/>
                 </td>
               );
               day = dateFns.addDays(day, 1);
