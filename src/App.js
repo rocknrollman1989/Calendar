@@ -30,14 +30,14 @@ nextMonth = () =>{
 
 
   render() {
-    
-    console.log(this.state.todayDate)
+
+      let weekDays = moment.weekdays();
 
     return (
     <div className="calendar-wrapper">
       {/* <CalendarHeader/> */}
       <CalendarSelecter props={this.state} prevMonth={this.prevMonth} nextMonth={this.nextMonth}/>
-      <CalendarTabble  />
+      <CalendarTabble moment={this.state.todayDate} weekDays={weekDays} />
     </div>
     );
   }
