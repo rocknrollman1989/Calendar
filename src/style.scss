@@ -1,0 +1,37 @@
+.calendar-wrapper{
+    width: 100%;
+
+    .calendar-months-select{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        button{
+
+        }
+        div{
+            display: flex;
+            flex-direction: row;
+            p{
+                margin: 0 20px;
+            }
+        }
+    }
+
+    .calendar_days{
+        width: 100%;
+        td{ 
+            height: 50px;
+            span{
+                font-size: 12px;
+            }
+        }
+        td:hover{
+            color: aqua;
+            cursor: pointer;
+        }
+    }
+
+}

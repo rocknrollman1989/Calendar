@@ -1,13 +1,7 @@
 import React from 'react'
+import InfoCell from './infoCell'
 
-
-
-export default class CalendarTabble extends React.Component{
-
-
-
-render() {
-    const { dateFns, todayState } = this.props
+ const CalendarTabble = ({dateFns, todayState}) => {
 
     const weekDaysFormat = 'dddd'
     const weekDaysName = []
@@ -48,30 +42,30 @@ render() {
               ourDate = dateFns.format(day, dateFormat);
               days.push(
                 <td key={day} >
-                  <span className="number">{ourDate}</span>
+                  {/* <span className="number">{ourDate}</span> */}
+                  <InfoCell ourDate={ourDate} day={day}/>
                 </td>
               );
               day = dateFns.addDays(day, 1);
             }
             rows.push(
-            <tr  key={day} >
-                {days}
-            </tr>
-            );
+            <tr  key={day}>{days}</tr>  
+                );
             days = [];
           }
-        return <table><tbody>{rows}</tbody></table>
+
+        return rows
     }
         return(
             <>
-            <table className='calendar_name_of_day'>
+            <table className='calendar_days'>
                 <tbody>
                     <DaysName/>
+                    <CalendarTable/>
                 </tbody>
             </table>
-            <CalendarTable/>
             </>
         )
 }
 
-}
+export default CalendarTabble
