@@ -1,5 +1,6 @@
 .calendar-wrapper{
     width: 100%;
+    position: relative;
 
     .calendar-months-select{
         width: 100%;
@@ -32,6 +33,15 @@
             color: aqua;
             cursor: pointer;
         }
+    }
+    .popup-container{
+
+        position: absolute;
+        top: 200px;
+        left: 30%;
+        background-color: blue;
+        padding: 30px;
+        z-index: 100;
     }
 
 }

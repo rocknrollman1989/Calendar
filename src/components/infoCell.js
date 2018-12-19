@@ -3,30 +3,60 @@ import InputPopPup from './inputPopPup'
 
 class InfoCell extends React.Component{
     state = {
-        ourAction: '',
+        ourEvent: '',
         namesOfPeople: '',
-        ourDescription: '' 
+        ourDescription: '' ,
+        popupIsOpen: false
     }
 
-    componentDidMount = () => {
-       
+    closePopup = () => {
+        this.setState({popupIsOpen: false})
+    }
+    openPopup = () => {
+        this.setState({popupIsOpen : true })
+    }
+    handleChange = (e) => {
+
+        const { value, name } = e.target
+        this.setState({[name] : value})
+
+    }
+    onDeletData = () => {
+        this.setState({ ourEvent: '',
+                        namesOfPeople: '',
+                        ourDescription: '',
+                        popupIsOpen: false})
+    }
+
+    onCorrectData = () => {
+        this.setState({ ourEvent: this.state.ourEvent,
+                        namesOfPeople: this.state.namesOfPeople,
+                        ourDescription: this.state.ourDescription,
+                        popupIsOpen: false})
+            
     }
 
     render() {
 
         const { ourDate, day } = this.props
-        const { ourAction, namesOfPeople,ourDescription } = this.state
+        const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state
+        console.log(this.props)
 
         return(
             <div >
-                <InputPopPup/>
-                <span>{ourDate}</span>
+            <span onClick={this.openPopup}>{ourDate}</span>
+                {popupIsOpen?
+                <InputPopPup props={this.state}
+                closePopup = {this.closePopup} 
+                onCorrectData = {this.onCorrectData}
+                handleChange = {this.handleChange}
+                onDeletData = {this.onDeletData}
+                 />: null }
                 <div>   
-                    <h3>{ourAction}</h3>
+                    <h3>{ourEvent}</h3>
                     <h4>{namesOfPeople}</h4>
                     <p>{ourDescription}</p>
                 </div>
-
             </div>
 
         )

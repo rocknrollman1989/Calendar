@@ -42,7 +42,6 @@ import InfoCell from './infoCell'
               ourDate = dateFns.format(day, dateFormat);
               days.push(
                 <td key={day} >
-                  {/* <span className="number">{ourDate}</span> */}
                   <InfoCell ourDate={ourDate} day={day}/>
                 </td>
               );
