@@ -10,7 +10,11 @@ class InfoCell extends React.Component{
             namesOfPeople: '',
             ourDescription: '' ,
             keyDateInfo: '',
-            popupIsOpen: false
+            popupIsOpen: false,
+            onActiveButton: false,
+            ourEventValid: false,
+            ourDescriptionValid: false,
+
         }
     }
     componentDidMount = () => {
@@ -33,11 +37,36 @@ class InfoCell extends React.Component{
         this.setState({popupIsOpen : true })
     }
     handleChange = (e) => {
-
         const { value, name } = e.target
-        this.setState({[name] : value})
-
+        this.setState({[name] : value},
+            () => { this.validateForm(name, value)})
     }
+
+    validateForm = (fieldName, value) => {
+    const { ourEvent, ourDescription, ourEventValid, ourDescriptionValid  } = this.state
+        
+        switch(fieldName){ 
+
+        case 'ourEvent':
+            if(ourEvent.length>2){ 
+                this.setState({ourEventValid: true})
+             }    
+             break
+        case 'ourDescription':
+            if(ourDescription.length>3) { 
+                this.setState({ourDescriptionValid: true})
+            }
+            break
+        default: 
+        }
+        console.log(ourEventValid, ourDescriptionValid)
+        if(ourEventValid&&ourDescriptionValid){
+           return this.setState({onActiveButton: true})
+        
+    }
+    return
+    }
+
     onDeletData = () => {
         const { dateFns, day } = this.props
         let keyDate = dateFns.format(day,'MDD')
@@ -86,7 +115,7 @@ class InfoCell extends React.Component{
                 onCorrectData = {this.onCorrectData}
                 handleChange = {this.handleChange}
                 onDeletData = {this.onDeletData}
-                 />: null }
+                />: null }
                 <div>   
                     <h3>{ourEvent}</h3>
                     <h4>{namesOfPeople}</h4>
