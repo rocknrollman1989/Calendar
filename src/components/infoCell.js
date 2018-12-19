@@ -111,7 +111,6 @@ class InfoCell extends React.Component{
             <span>{ourDate}</span>
                 {popupIsOpen?
                 <InputPopPup 
-                className='popup-container'
                 props={this.state}
                 closePopup = {this.closePopup} 
                 onCorrectData = {this.onCorrectData}
