@@ -107,16 +107,18 @@ class InfoCell extends React.Component{
         const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state
         
         return(
-            <div >
-            <span onClick={this.openPopup}>{ourDate}</span>
+            <div>
+            <span>{ourDate}</span>
                 {popupIsOpen?
-                <InputPopPup props={this.state}
+                <InputPopPup 
+                className='popup-container'
+                props={this.state}
                 closePopup = {this.closePopup} 
                 onCorrectData = {this.onCorrectData}
                 handleChange = {this.handleChange}
                 onDeletData = {this.onDeletData}
                 />: null }
-                <div>   
+                <div onClick={this.openPopup} className='calendare-day-info'>   
                     <h3>{ourEvent}</h3>
                     <h4>{namesOfPeople}</h4>
                     <p>{ourDescription}</p>
