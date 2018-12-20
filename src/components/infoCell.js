@@ -59,7 +59,7 @@ class InfoCell extends React.Component{
             break
         default: 
         }
-        console.log(ourEventValid, ourDescriptionValid)
+       
         if(ourEventValid&&ourDescriptionValid){
            return this.setState({onActiveButton: true})
         
@@ -83,7 +83,7 @@ class InfoCell extends React.Component{
         const { ourEvent, namesOfPeople, ourDescription } = this.state
         const { dateFns, day } = this.props
         let keyDate = dateFns.format(day,'MDD')
-
+        let keyDateForUser = dateFns.format(day,'M-DD')
         this.setState({ ourEvent: ourEvent,
                         namesOfPeople: namesOfPeople,
                         ourDescription: ourDescription,
@@ -93,7 +93,9 @@ class InfoCell extends React.Component{
         let saveEventCalendar = {
             ourEvent: ourEvent, 
             namesOfPeople: namesOfPeople, 
-            ourDescription: ourDescription
+            ourDescription: ourDescription,
+            keyDateForUser: keyDateForUser
+            
         }
 
         let memoryObj = JSON.stringify(saveEventCalendar)

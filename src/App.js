@@ -7,12 +7,20 @@ import dateFns from "date-fns";
 class App extends Component {
 
 state = {
-todayDate: new Date()
+todayDate: new Date(),
+ourEvents: []
 
 }
 
 componentDidMount = () => {
+    const ourActionInfo = []
 
+      for(let i=0; i<localStorage.length; i++){
+      let key = localStorage.key(i)
+      let returnObj = JSON.parse(localStorage.getItem(key))
+      ourActionInfo.push(returnObj)
+    }
+      this.setState({ ourEvents: ourActionInfo})   
 }
 
 prevMonth = () =>{
@@ -30,7 +38,7 @@ nextMonth = () =>{
 
 
   render() {
-
+    console.log(this.state.ourEvents)
     return (
     <div className="calendar-wrapper">
       {/* <CalendarHeader/> */}
