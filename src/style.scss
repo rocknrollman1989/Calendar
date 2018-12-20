@@ -2,6 +2,39 @@
     width: 100%;
     position: relative;
 
+    .calendar-header{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 20px 0;
+        background: burlywood;
+
+        .all-search-events{
+            position: absolute;
+            background: rgb(233, 137, 48);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+            .calendar-header-events{
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                border: 0.2px solid black;
+                border-radius: 15px;
+                p{
+                    margin: 0;
+                }
+
+            }
+        }
+    }
+
     .calendar-months-select{
         width: 100%;
         display: flex;

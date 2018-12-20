@@ -1,6 +1,31 @@
 .calendar-wrapper {
   width: 100%;
   position: relative; }
+  .calendar-wrapper .calendar-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px 0;
+    background: burlywood; }
+    .calendar-wrapper .calendar-header .all-search-events {
+      position: absolute;
+      background: #e98930;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center; }
+      .calendar-wrapper .calendar-header .all-search-events .calendar-header-events {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        border: 0.2px solid black;
+        border-radius: 15px; }
+        .calendar-wrapper .calendar-header .all-search-events .calendar-header-events p {
+          margin: 0; }
   .calendar-wrapper .calendar-months-select {
     width: 100%;
     display: flex;
