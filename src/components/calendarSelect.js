@@ -1,6 +1,6 @@
 import React from 'react'
 
- const CalendarSelecter = ({dateFns, prevMonth, nextMonth, todayState, searchEvents}) => {
+ const CalendarSelecter = ({dateFns, prevMonth, nextMonth, todayState}) => {
     const showMonth = dateFns.format(todayState, "MMMM")
     const showYear =  dateFns.format(todayState, "YYYY")
 

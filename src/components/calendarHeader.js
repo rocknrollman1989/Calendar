@@ -2,7 +2,7 @@ import React from 'react'
 
 const CalendarHeader = ({clearLocalStorage, searchEvents, searchEvent, ourSearchEventsDisplay}) => {
 
-    const showSearchEvents = ourSearchEventsDisplay? ourSearchEventsDisplay.map((item, i)=>{
+    const showSearchEvents = ourSearchEventsDisplay?ourSearchEventsDisplay.map((item, i)=>{
         return(
             <div key={i} className='calendar-header-events'>
                 <p>{item.ourEvent}</p>
@@ -21,7 +21,7 @@ const CalendarHeader = ({clearLocalStorage, searchEvents, searchEvent, ourSearch
                 <input type="text" value={searchEvent} name='searchEvent' onChange={(e)=>{searchEvents(e)}}/>
             </label>
             <div className='all-search-events'>
-            {showSearchEvents}
+                {showSearchEvents}
             </div>
         </div>
     )

@@ -3,6 +3,7 @@ import CalendarSelecter from './components/calendarSelect'
 import CalendarTabble from './components/calendarTabble'
 import dateFns from "date-fns";
 import CalendarHeader from './components/calendarHeader'
+import { connect } from 'react-redux'
 
 
 class App extends Component {
@@ -16,7 +17,7 @@ ourSearchEventsDisplay: []
 }
 
 componentDidMount = () => {
-    const ourActionInfo = []
+      const ourActionInfo = []
 
       for(let i=0; i<localStorage.length; i++){
       let key = localStorage.key(i)
@@ -35,7 +36,7 @@ searchEvents = (e) => {
   const { ourEvents, searchEvent } = this.state
   let textToFind = searchEvent
   const ourSearchEvents = []
-  const regExpToFind = new RegExp(textToFind.replace(/[.{}()\[\]?*+^$]/, '\\\\$1'), 'gmi')
+  const regExpToFind = new RegExp(textToFind.replace(/[.{}()[\]?*+^$]/, '\\\\$1'), 'gmi')
      ourEvents.filter((item) => {
         return Object.keys(item).some((key) => {
             if(regExpToFind.test(item[key])){
@@ -77,4 +78,12 @@ localStorage.clear()
   }
 }
 
-export default App;
+const mapStateToProps = (state) =>{
+
+  return{
+    
+  }
+}
+
+
+export default connect(mapStateToProps)(App);
