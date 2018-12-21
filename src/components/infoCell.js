@@ -1,6 +1,7 @@
 import React from 'react'
 import InputPopPup from './inputPopPup'
 import { connect } from 'react-redux'
+import { getNewEventForCalendar } from '../actions/actions'
 
 class InfoCell extends React.Component{
     constructor(props){
@@ -99,12 +100,13 @@ class InfoCell extends React.Component{
         }
 
         let memoryObj = JSON.stringify(saveEventCalendar)
-
         localStorage.setItem( keyDate , memoryObj )
+        this.props.getNewEventForCalendar(saveEventCalendar)
+        return
     }
 
     render() {
-
+        
         const { ourDate } = this.props
         const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state
         
@@ -140,9 +142,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 
-return{
+    return{
 
-}
+    getNewEventForCalendar: (saveEventCalendar) => (dispatch(getNewEventForCalendar(saveEventCalendar)))
+
+    }
 }
 
 
