@@ -1,5 +1,6 @@
 import React from 'react'
 import InputPopPup from './inputPopPup'
+import { connect } from 'react-redux'
 
 class InfoCell extends React.Component{
     constructor(props){
@@ -62,8 +63,7 @@ class InfoCell extends React.Component{
        
         if(ourEventValid&&ourDescriptionValid){
            return this.setState({onActiveButton: true})
-        
-    }
+        }
     return
     }
 
@@ -131,4 +131,19 @@ class InfoCell extends React.Component{
     }
 }
 
-export default InfoCell
+const mapStateToProps = (state) => {
+
+    return{
+
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+
+return{
+
+}
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoCell)
