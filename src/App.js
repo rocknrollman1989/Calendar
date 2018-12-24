@@ -11,22 +11,21 @@ class App extends Component {
 
 state = {
 todayDate: new Date(),
-ourEvents: [],
 searchEvent: '',
 ourSearchEventsDisplay: []
 
 }
 
 componentDidMount = () => {
-  // забираем эвенты из локала, если нет интернета
+  // забираем эвенты из локала
       const ourActionInfo = []
       for(let i=0; i<localStorage.length; i++){
       let key = localStorage.key(i)
       let returnObj = JSON.parse(localStorage.getItem(key))
       ourActionInfo.push(returnObj)
     }
-      this.setState({ ourEvents: ourActionInfo})   
-      this.props.loadEventToFirebase(ourActionInfo) // обновляем стэйт при загрузке+ обновляем фаерстор
+
+      this.props.loadEventToFirebase(ourActionInfo) // обновляем стэйт при загрузке + обновляем фаерстор
     
 }
 
@@ -34,11 +33,12 @@ searchEvents = (e) => {
   const { value, name } = e.target
   this.setState({ [name]: value })
 
-  const { ourEvents, searchEvent } = this.state
+  const { events } = this.props
+  const { searchEvent } = this.state
   let textToFind = searchEvent
   const ourSearchEvents = []
   const regExpToFind = new RegExp(textToFind.replace(/[.{}()[\]?*+^$]/, '\\\\$1'), 'gmi')
-     ourEvents.filter((item) => {
+    events.filter((item) => {
         return Object.keys(item).some((key) => {
             if(regExpToFind.test(item[key])){
                return ourSearchEvents.push(item)
@@ -62,12 +62,11 @@ nextMonth = () =>{
   })
 }
 
-clearLocalStorage = () => {
+// clearLocalStorage = () => {
+//   localStorage.clear()
+// }
 
-localStorage.clear()
-}
   render() {
-   
 
     return (
     <div className="calendar-wrapper">
@@ -80,9 +79,9 @@ localStorage.clear()
 }
 
 const mapStateToProps = (state) =>{
-  console.log(state)
+
   return{
-    
+    events: state.events
   }
 }
 

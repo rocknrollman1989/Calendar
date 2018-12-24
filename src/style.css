@@ -46,18 +46,23 @@
   .calendar-wrapper .calendar_days {
     width: 100%;
     background-color: antiquewhite; }
-    .calendar-wrapper .calendar_days td {
-      text-align: center;
-      border: 0.2px solid burlywood;
-      width: 14.28%;
-      height: 150px; }
-      .calendar-wrapper .calendar_days td div {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start; }
-        .calendar-wrapper .calendar_days td div .popup-container {
+    .calendar-wrapper .calendar_days .calendar-days-of-the-week {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      border: 0.2px solid burlywood; }
+      .calendar-wrapper .calendar_days .calendar-days-of-the-week .calendar-days-of-the-week-day-name {
+        text-align: center;
+        width: 14.28%; }
+    .calendar-wrapper .calendar_days .calendar-week {
+      display: flex;
+      flex-direction: row;
+      width: 100%; }
+      .calendar-wrapper .calendar_days .calendar-week .day {
+        text-align: center;
+        width: 14.28%;
+        border: 0.2px solid burlywood; }
+        .calendar-wrapper .calendar_days .calendar-week .day .popup-container {
           position: absolute;
           left: 50%;
           margin-left: -100px;
@@ -69,24 +74,24 @@
           align-items: center;
           flex-direction: column;
           z-index: 100; }
-          .calendar-wrapper .calendar_days td div .popup-container form {
+          .calendar-wrapper .calendar_days .calendar-week .day .popup-container form {
             margin: 20px; }
-            .calendar-wrapper .calendar_days td div .popup-container form label {
+            .calendar-wrapper .calendar_days .calendar-week .day .popup-container form label {
               display: flex;
               flex-direction: column; }
-        .calendar-wrapper .calendar_days td div .calendare-day-info {
+        .calendar-wrapper .calendar_days .calendar-week .day .calendare-day-info {
           height: 120px; }
-          .calendar-wrapper .calendar_days td div .calendare-day-info h3 {
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day-info h3 {
             margin: 0px;
             font-size: 16px; }
-          .calendar-wrapper .calendar_days td div .calendare-day-info h4 {
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day-info h4 {
             margin: 0px;
             font-size: 16px;
             font-weight: normal; }
-          .calendar-wrapper .calendar_days td div .calendare-day-info p {
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day-info p {
             font-size: 12px; }
-    .calendar-wrapper .calendar_days td:hover {
-      background-color: wheat;
-      cursor: pointer; }
+      .calendar-wrapper .calendar_days .calendar-week .day:hover {
+        background-color: wheat;
+        cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */

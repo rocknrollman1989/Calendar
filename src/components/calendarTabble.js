@@ -1,27 +1,8 @@
 import React from 'react'
 import InfoCell from './infoCell'
+import DaysName from './daysOfTheWeek'
 
  const CalendarTabble = ({dateFns, todayState}) => {
-
-    const weekDaysFormat = 'dddd'
-    const weekDaysName = []
-
-    const DaysName = () => {
-
-        let startWeek = dateFns.startOfWeek(todayState, {weekStartsOn: 1})
-
-            for(let i=0; i<7; i++){ 
-                weekDaysName.push(
-                <td key={i}>
-                    {dateFns.format(dateFns.addDays(startWeek, i), weekDaysFormat)} 
-                </td>
-                )
-            }
-        return (
-            <tr>{weekDaysName}</tr>
-        )
-    }
-
 
     const monthStart = dateFns.startOfMonth(todayState)
     const monthEnd = dateFns.endOfMonth(monthStart)
@@ -41,28 +22,29 @@ import InfoCell from './infoCell'
             for (let i = 0; i < 7; i++) {
               ourDate = dateFns.format(day, dateFormat);
               days.push(
-                <td key={day} >
+                <div className='day' key={day} >
                   <InfoCell ourDate={ourDate} dateFns={dateFns} day={day}/>
-                </td>
+                </div>
               );
               day = dateFns.addDays(day, 1);
             }
             rows.push(
-            <tr  key={day}>{days}</tr>  
+            <div  key={day} className='calendar-week'>{days}</div>  
                 );
             days = [];
           }
 
         return rows
     }
+
+
+
         return(
             <>
-            <table className='calendar_days'>
-                <tbody>
-                    <DaysName/>
-                    <CalendarTable/>
-                </tbody>
-            </table>
+            <div className='calendar_days'>
+                <DaysName props={{dateFns, todayState}}/>
+                <CalendarTable/>
+            </div>
             </>
         )
 }
