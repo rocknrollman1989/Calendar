@@ -1,7 +1,7 @@
 import React from 'react'
 import InputPopPup from './inputPopPup'
 import { connect } from 'react-redux'
-import { getNewEventForCalendar } from '../actions/actions'
+import { getNewEventForCalendar, deleteEventfromcalendar } from '../actions/actions'
 
 class InfoCell extends React.Component{
     constructor(props){
@@ -71,12 +71,20 @@ class InfoCell extends React.Component{
     onDeletData = () => {
         const { dateFns, day } = this.props
         let keyDate = dateFns.format(day,'MDD')
+        let keyDateForUser = dateFns.format(day,'M-DD')
         this.setState({ ourEvent: '',
                         namesOfPeople: '',
                         ourDescription: '',
                         keyDateInfo: '',
                         popupIsOpen: false})
         delete localStorage[keyDate]
+
+        let deleteEvent = {
+            keyDateForUser: keyDateForUser
+        }
+        this.props.deleteEventfromcalendar(deleteEvent)
+
+        return
         
     }
 
@@ -134,7 +142,7 @@ class InfoCell extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-
+    // console.log(state)
     return{
 
     }
@@ -144,7 +152,8 @@ const mapDispatchToProps = (dispatch) => {
 
     return{
 
-    getNewEventForCalendar: (saveEventCalendar) => (dispatch(getNewEventForCalendar(saveEventCalendar)))
+    getNewEventForCalendar: (saveEventCalendar) => (dispatch(getNewEventForCalendar(saveEventCalendar))),
+    deleteEventfromcalendar: (deleteEvent) => (dispatch(deleteEventfromcalendar(deleteEvent)))
 
     }
 }

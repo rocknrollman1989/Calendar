@@ -17,16 +17,15 @@ ourSearchEventsDisplay: []
 }
 
 componentDidMount = () => {
+  // забираем эвенты из локала, если не интернета
       const ourActionInfo = []
-
       for(let i=0; i<localStorage.length; i++){
       let key = localStorage.key(i)
       let returnObj = JSON.parse(localStorage.getItem(key))
       ourActionInfo.push(returnObj)
     }
       this.setState({ ourEvents: ourActionInfo})   
-
-
+    
 }
 
 searchEvents = (e) => {
@@ -85,5 +84,10 @@ const mapStateToProps = (state) =>{
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
 
-export default connect(mapStateToProps)(App);
+  return{
+    
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
