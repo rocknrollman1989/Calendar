@@ -4,6 +4,7 @@ import CalendarTabble from './components/calendarTabble'
 import dateFns from "date-fns";
 import CalendarHeader from './components/calendarHeader'
 import { connect } from 'react-redux'
+import { loadEventToFirebase } from './actions/actions'
 
 
 class App extends Component {
@@ -17,7 +18,7 @@ ourSearchEventsDisplay: []
 }
 
 componentDidMount = () => {
-  // забираем эвенты из локала, если не интернета
+  // забираем эвенты из локала, если нет интернета
       const ourActionInfo = []
       for(let i=0; i<localStorage.length; i++){
       let key = localStorage.key(i)
@@ -25,6 +26,7 @@ componentDidMount = () => {
       ourActionInfo.push(returnObj)
     }
       this.setState({ ourEvents: ourActionInfo})   
+      this.props.loadEventToFirebase(ourActionInfo) // обновляем стэйт при загрузке+ обновляем фаерстор
     
 }
 
@@ -78,7 +80,7 @@ localStorage.clear()
 }
 
 const mapStateToProps = (state) =>{
-
+  console.log(state)
   return{
     
   }
@@ -87,7 +89,7 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) => {
 
   return{
-    
+    loadEventToFirebase: (eventsArray) => {dispatch(loadEventToFirebase(eventsArray))}
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
