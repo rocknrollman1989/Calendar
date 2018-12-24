@@ -1,7 +1,7 @@
 import React from 'react'
 import InputPopPup from './inputPopPup'
 import { connect } from 'react-redux'
-import { getNewEventForCalendar, deleteEventfromcalendar } from '../actions/actions'
+import { getNewEventForCalendar, deleteEventfromcalendar, openPopupState, closePopupState } from '../actions/actions'
 
 class InfoCell extends React.Component{
     constructor(props){
@@ -34,14 +34,19 @@ class InfoCell extends React.Component{
 
     closePopup = () => {
         this.setState({popupIsOpen: false})
+        this.props.closePopupState()
+        return
     }
     openPopup = () => {
         this.setState({popupIsOpen : true })
+        this.props.openPopupState()
+        return
     }
     handleChange = (e) => {
         const { value, name } = e.target
         this.setState({[name] : value},
             () => { this.validateForm(name, value)})
+ 
     }
 
     validateForm = (fieldName, value) => {
@@ -114,8 +119,7 @@ class InfoCell extends React.Component{
     }
 
     render() {
-        
-        const { ourDate } = this.props
+        const { ourDate, statePopupIsOpen } = this.props
         const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state
         
         return(
@@ -129,7 +133,7 @@ class InfoCell extends React.Component{
                 handleChange = {this.handleChange}
                 onDeletData = {this.onDeletData}
                 />: null }
-                <div onClick={this.openPopup} className='calendare-day-info'>   
+                <div onClick={ statePopupIsOpen ? null : this.openPopup} className='calendare-day-info'>   
                     <h3>{ourEvent}</h3>
                     <h4>{namesOfPeople}</h4>
                     <p>{ourDescription}</p>
@@ -142,9 +146,8 @@ class InfoCell extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return{
-
+        statePopupIsOpen: state.statePopupIsOpen
     }
 }
 
@@ -153,7 +156,9 @@ const mapDispatchToProps = (dispatch) => {
     return{
 
     getNewEventForCalendar: (saveEventCalendar) => (dispatch(getNewEventForCalendar(saveEventCalendar))),
-    deleteEventfromcalendar: (deleteEvent) => (dispatch(deleteEventfromcalendar(deleteEvent)))
+    deleteEventfromcalendar: (deleteEvent) => (dispatch(deleteEventfromcalendar(deleteEvent))),
+    openPopupState: () => {dispatch(openPopupState())},
+    closePopupState: () => {dispatch(closePopupState())}
 
     }
 }

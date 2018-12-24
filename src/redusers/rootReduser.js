@@ -1,10 +1,25 @@
 const initState = {
-    events: []
+    events: [],
+    statePopupIsOpen: false
 }
 
 export const rootReduser = (state = initState, action) => {
+
     // console.log(action)
+
 switch(action.type){
+    case 'POPUP_OPEN':
+        return{
+            ...state,
+            statePopupIsOpen: true
+           
+        }
+    case 'POPUP_CLOSE':
+        return{
+            ...state,
+            statePopupIsOpen: false
+
+        }
     case 'ADD_A_NEW_EVENT_TO_CALENDAR':
         let ourEventsUpload = state.events.filter(
             (event) => { return event.keyDateForUser !== action.data.keyDateForUser }
@@ -20,6 +35,7 @@ switch(action.type){
         }
     case 'LOAD_STATE':
         return{
+            ...state,
             events: [...state.events, action.event] 
         }
     case 'DELETE_OUR_EVENT':

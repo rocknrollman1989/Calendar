@@ -37,8 +37,6 @@ import DaysName from './daysOfTheWeek'
         return rows
     }
 
-
-
         return(
             <>
             <div className='calendar_days'>

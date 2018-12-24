@@ -1,6 +1,17 @@
 
 const myEventsInCalendar = 'myEventsInCalendar'
 
+export const openPopupState = () => {
+    return {
+        type: 'POPUP_OPEN'
+    }
+}
+
+export const closePopupState = () => {
+    return {
+       type: 'POPUP_CLOSE'
+    }
+}
 
 export const getNewEventForCalendar = (eventInfo) => {
    return  (dispatch, getState, { getFirestore}) => {
