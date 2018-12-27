@@ -1,6 +1,8 @@
 import React from 'react'
 
-const CalendarHeader = ({clearLocalStorage, searchEvents, searchEvent, ourSearchEventsDisplay}) => {
+const CalendarHeader = ({props, clearLocalStorage, searchEvents, addingANewEvent, addAEventToCAlendar}) => {
+
+    const { ourSearchEventsDisplay, searchEvent, shortEventDescr } = props
 
     const showSearchEvents = ourSearchEventsDisplay ? ourSearchEventsDisplay.map((item, i)=>{
         return(
@@ -15,6 +17,11 @@ const CalendarHeader = ({clearLocalStorage, searchEvents, searchEvent, ourSearch
 
     return(
         <div className='calendar-header'>
+            <label>
+                quick add of event
+                <input type="text" value={shortEventDescr} name='shortEventDescr' onChange={(e)=>{addingANewEvent(e)}} placeholder='add date(month-day), event'/>
+            </label>
+            <button onClick={()=>{addAEventToCAlendar()}}>Add a event!</button>
             <button onClick={()=>{clearLocalStorage()}}>Clear calendar</button>
             <label>
                 search Event

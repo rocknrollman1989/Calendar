@@ -4,7 +4,7 @@ import CalendarTabble from './components/calendarTabble'
 import dateFns from "date-fns";
 import CalendarHeader from './components/calendarHeader'
 import { connect } from 'react-redux'
-import { loadEventToFirebase } from './actions/actions'
+import { loadEventToFirebase, callToGoogleCalendar, addQuickEventToCAlendar } from './actions/actions'
 
 
 class App extends Component {
@@ -12,6 +12,7 @@ class App extends Component {
 state = {
 todayDate: new Date(),
 searchEvent: '',
+shortEventDescr: '',
 ourSearchEventsDisplay: []
 
 }
@@ -26,7 +27,17 @@ componentDidMount = () => {
     }
 
       this.props.loadEventToFirebase(ourActionInfo) // обновляем стэйт при загрузке + обновляем фаерстор
+      this.props.callToGoogleCalendar()
     
+}
+addingANewEvent = (e) =>{
+  const { value, name } = e.target
+  this.setState({ [name]: value })
+}
+
+addAEventToCAlendar = () => {
+  this.setState({shortEventDescr: this.state.shortEventDescr})
+  this.props.addQuickEventToCAlendar(this.state.shortEventDescr)
 }
 
 searchEvents = (e) => {
@@ -70,7 +81,7 @@ nextMonth = () =>{
 
     return (
     <div className="calendar-wrapper">
-      <CalendarHeader clearLocalStorage={this.clearLocalStorage} searchEvents={this.searchEvents} searchEvent={this.state.searchEvent} ourSearchEventsDisplay={this.state.ourSearchEventsDisplay}/>
+      <CalendarHeader props={this.state} clearLocalStorage={this.clearLocalStorage} searchEvents={this.searchEvents} addingANewEvent={this.addingANewEvent} addAEventToCAlendar={this.addAEventToCAlendar}/>
       <CalendarSelecter dateFns={dateFns} todayState={this.state.todayDate} prevMonth={this.prevMonth} nextMonth={this.nextMonth}/>
       <CalendarTabble dateFns={dateFns} todayState={this.state.todayDate}/>
     </div>
@@ -88,7 +99,9 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) => {
 
   return{
-    loadEventToFirebase: (eventsArray) => {dispatch(loadEventToFirebase(eventsArray))}
+    loadEventToFirebase: (eventsArray) => {dispatch(loadEventToFirebase(eventsArray))},
+    callToGoogleCalendar: () => {dispatch(callToGoogleCalendar())},
+    addQuickEventToCAlendar: (addEventData) => {dispatch(addQuickEventToCAlendar(addEventData))}
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

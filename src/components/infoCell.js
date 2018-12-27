@@ -19,8 +19,10 @@ class InfoCell extends React.Component{
 
         }
     }
+
     componentDidMount = () => {
         const { dateFns, day } = this.props
+       
         let keyDate = dateFns.format(day,'MDD')
         let returnObj = JSON.parse(localStorage.getItem(keyDate))
             if(returnObj){
@@ -30,6 +32,7 @@ class InfoCell extends React.Component{
                                 keyDateInfo: keyDate,
                                 })
             }
+            
     }
 
     closePopup = () => {
@@ -94,6 +97,7 @@ class InfoCell extends React.Component{
     }
 
     onCorrectData = () => {
+
         const { ourEvent, namesOfPeople, ourDescription } = this.state
         const { dateFns, day } = this.props
         let keyDate = dateFns.format(day,'MDD')
@@ -119,6 +123,7 @@ class InfoCell extends React.Component{
     }
 
     render() {
+        
         const { ourDate, statePopupIsOpen } = this.props
         const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state
         
@@ -147,7 +152,8 @@ class InfoCell extends React.Component{
 
 const mapStateToProps = (state) => {
     return{
-        statePopupIsOpen: state.statePopupIsOpen
+        statePopupIsOpen: state.statePopupIsOpen,
+        events: state.events
     }
 }
 
