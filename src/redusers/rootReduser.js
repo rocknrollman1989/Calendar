@@ -20,6 +20,11 @@ switch(action.type){
             statePopupIsOpen: false
 
         }
+    case 'CLEAR_OUR_STORAGE':
+        return{
+            ...state,
+            events: []
+        }
     case 'ADD_A_NEW_EVENT_TO_CALENDAR':
         let ourEventsUpload = state.events.filter(
             (event) => { return event.keyDateForUser !== action.data.keyDateForUser }

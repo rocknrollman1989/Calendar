@@ -53,6 +53,21 @@ export const deleteEventfromcalendar = (deleteId) => {
         })
     }
 }
+// clear fireStore all
+export const clearFirestoreStore = (ourClearStorageInfoKeys) => {
+    return ( dispatch, getState, { getFirestore } ) => {
+        const firestore = getFirestore()
+        ourClearStorageInfoKeys.forEach((info) => {
+            firestore.collection(myEventsInCalendar).doc(`${info}`).delete()
+            .catch(
+                (error) => {
+                    console.log(error)
+            })
+        })
+        dispatch({type: 'CLEAR_OUR_STORAGE'})
+        
+    }
+}
 // догружаем отсутствующие события
 export const loadEventToFirebase = (eventsArray) => {
     return( dispatch, getState, { getFirestore}) => {

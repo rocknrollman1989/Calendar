@@ -4,7 +4,7 @@ import CalendarTabble from './components/calendarTabble'
 import dateFns from "date-fns";
 import CalendarHeader from './components/calendarHeader'
 import { connect } from 'react-redux'
-import { loadEventToFirebase, callToGoogleCalendar, addQuickEventToCAlendar } from './actions/actions'
+import { loadEventToFirebase, callToGoogleCalendar, addQuickEventToCAlendar, clearFirestoreStore } from './actions/actions'
 
 
 class App extends Component {
@@ -37,7 +37,10 @@ addingANewEvent = (e) =>{
 
 addAEventToCAlendar = () => {
   this.setState({shortEventDescr: this.state.shortEventDescr})
+
   this.props.addQuickEventToCAlendar(this.state.shortEventDescr)
+
+  return  this.setState({shortEventDescr: ''})
 }
 
 searchEvents = (e) => {
@@ -74,7 +77,16 @@ nextMonth = () =>{
 }
 
 clearLocalStorage = () => {
-  localStorage.clear()
+  const ourClearStorageInfoKeys = []
+      for(let i=0; i<localStorage.length; i++){
+      let key = localStorage.key(i)
+      //find keys to clear fb
+      let returnObj = JSON.parse(localStorage.getItem(key))
+      ourClearStorageInfoKeys.push(returnObj.keyDateForUser)
+      }
+  this.props.clearFirestoreStore(ourClearStorageInfoKeys)
+
+    localStorage.clear();
 }
 
   render() {
@@ -101,7 +113,8 @@ const mapDispatchToProps = (dispatch) => {
   return{
     loadEventToFirebase: (eventsArray) => {dispatch(loadEventToFirebase(eventsArray))},
     callToGoogleCalendar: () => {dispatch(callToGoogleCalendar())},
-    addQuickEventToCAlendar: (addEventData) => {dispatch(addQuickEventToCAlendar(addEventData))}
+    addQuickEventToCAlendar: (addEventData) => {dispatch(addQuickEventToCAlendar(addEventData))},
+    clearFirestoreStore: (ourClearStorageInfoKeys) => {dispatch(clearFirestoreStore(ourClearStorageInfoKeys))}
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
