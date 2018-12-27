@@ -77,7 +77,7 @@ export const addQuickEventToCAlendar = (addEventData) => {
         return !isNaN(elem)
     })
     let keyDate = [...number];
-    let keyDateForComponent = keyDate.slice(0,4).join('')
+    let keyDateForComponent = Number(keyDate.slice(0,4).join(''))
     number.splice(2,0,'-')
     let keyDateForUser = number.slice(0,5).join('')
     //Парсим Эвент-слова  
@@ -91,6 +91,6 @@ export const addQuickEventToCAlendar = (addEventData) => {
 
     let memoryObj = JSON.stringify(saveEventCalendar)
     localStorage.setItem( keyDateForComponent , memoryObj )
-    
+
     return getNewEventForCalendar(saveEventCalendar)
 }

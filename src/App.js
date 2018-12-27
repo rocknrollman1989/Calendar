@@ -73,9 +73,9 @@ nextMonth = () =>{
   })
 }
 
-// clearLocalStorage = () => {
-//   localStorage.clear()
-// }
+clearLocalStorage = () => {
+  localStorage.clear()
+}
 
   render() {
 

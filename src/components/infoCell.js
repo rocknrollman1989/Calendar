@@ -32,6 +32,7 @@ class InfoCell extends React.Component{
                                 keyDateInfo: keyDate,
                                 })
             }
+            // console.log(keyDate)
             
     }
 
@@ -123,7 +124,7 @@ class InfoCell extends React.Component{
     }
 
     render() {
-        
+
         const { ourDate, statePopupIsOpen } = this.props
         const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state
         
