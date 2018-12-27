@@ -1,4 +1,7 @@
 import React from 'react'
+import GoogleInitialComponent from './googleInitialize'
+
+
 
 const CalendarHeader = ({props, clearLocalStorage, searchEvents, addingANewEvent, addAEventToCAlendar}) => {
 
@@ -16,7 +19,9 @@ const CalendarHeader = ({props, clearLocalStorage, searchEvents, addingANewEvent
     })  : null;
 
     return(
+       
         <div className='calendar-header'>
+        <GoogleInitialComponent/>
             <label>
                 quick add of event
                 <input type="text" value={shortEventDescr} name='shortEventDescr' onChange={(e)=>{addingANewEvent(e)}} placeholder='add date(month-day), event'/>

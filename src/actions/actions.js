@@ -1,23 +1,23 @@
-// import { CLIENT_ID, API_KEY, DISCOVERY_DOCS, SCOPES } from '../config/google_const'
-// import axios from 'axios'
+const POPUP_OPEN = 'POPUP_OPEN';
+const POPUP_CLOSE = 'POPUP_CLOSE';
+const ADD_A_NEW_EVENT_TO_CALENDAR = 'ADD_A_NEW_EVENT_TO_CALENDAR';
+const ERROR_A_NEW_EVENT_ADD = 'ERROR_A_NEW_EVENT_ADD';
+const DELETE_OUR_EVENT = 'DELETE_OUR_EVENT';
+const CLEAR_OUR_STORAGE = 'CLEAR_OUR_STORAGE';
+const LOAD_STATE = 'LOAD_STATE';
+
 
 const myEventsInCalendar = 'myEventsInCalendar'
 
 export const openPopupState = () => {
     return {
-        type: 'POPUP_OPEN'
+        type: POPUP_OPEN
     }
 }
 
 export const closePopupState = () => {
     return {
-       type: 'POPUP_CLOSE'
-    }
-}
-
-export const callToGoogleCalendar = () => {
-    return (dispatch) => {
-       
+       type: POPUP_CLOSE
     }
 }
 
@@ -29,11 +29,11 @@ export const getNewEventForCalendar = (eventInfo) => {
         firestore.collection(myEventsInCalendar).doc(`${eventInfo.keyDateForUser}`).set({
             ...eventInfo,
         }).then(() => {
-            dispatch({ type: "ADD_A_NEW_EVENT_TO_CALENDAR", data: eventInfo })
+            dispatch({ type: ADD_A_NEW_EVENT_TO_CALENDAR, data: eventInfo })
         })
         .catch(
             (error) => {
-                dispatch({type: 'ERROR_A_NEW_EVENT_ADD', data: eventInfo})
+                dispatch({type: ERROR_A_NEW_EVENT_ADD, data: eventInfo})
                 console.log(error)
             }
         )
@@ -45,7 +45,7 @@ export const deleteEventfromcalendar = (deleteId) => {
         const firestore = getFirestore()
         firestore.collection(myEventsInCalendar).doc(`${deleteId.keyDateForUser}`).delete()
         .then(() => {
-           dispatch({type: 'DELETE_OUR_EVENT', data : deleteId })
+           dispatch({type: DELETE_OUR_EVENT, data : deleteId })
         })
         .catch(
             (error) => {
@@ -64,7 +64,7 @@ export const clearFirestoreStore = (ourClearStorageInfoKeys) => {
                     console.log(error)
             })
         })
-        dispatch({type: 'CLEAR_OUR_STORAGE'})
+        dispatch({type: CLEAR_OUR_STORAGE})
         
     }
 }
@@ -73,7 +73,7 @@ export const loadEventToFirebase = (eventsArray) => {
     return( dispatch, getState, { getFirestore}) => {
         const firestore = getFirestore();
         eventsArray.forEach((event) => {
-            dispatch({ type: 'LOAD_STATE', event})
+            dispatch({ type: LOAD_STATE, event})
             firestore.collection(myEventsInCalendar).doc(`${event.keyDateForUser}`).set({
                 ...event
             })
@@ -89,9 +89,11 @@ export const addQuickEventToCAlendar = (addEventData) => {
     //парсим дату - 4 числа
     let ourNumberToFind = addEventData.split('')
     let number = ourNumberToFind.filter((elem) => {
-        return !isNaN(elem)
+        return !Number.isNaN(elem)
     })
+    //clean " "
     let keyDate = [...number];
+    keyDate = keyDate.filter((elem) => { return elem !== " " })
     let keyDateForComponent = Number(keyDate.slice(0,4).join(''))
     number.splice(2,0,'-')
     let keyDateForUser = number.slice(0,5).join('')

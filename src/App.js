@@ -4,7 +4,7 @@ import CalendarTabble from './components/calendarTabble'
 import dateFns from "date-fns";
 import CalendarHeader from './components/calendarHeader'
 import { connect } from 'react-redux'
-import { loadEventToFirebase, callToGoogleCalendar, addQuickEventToCAlendar, clearFirestoreStore } from './actions/actions'
+import { loadEventToFirebase, addQuickEventToCAlendar, clearFirestoreStore } from './actions/actions'
 
 
 class App extends Component {
@@ -25,10 +25,7 @@ componentDidMount = () => {
       let returnObj = JSON.parse(localStorage.getItem(key))
       ourActionInfo.push(returnObj)
     }
-
       this.props.loadEventToFirebase(ourActionInfo) // обновляем стэйт при загрузке + обновляем фаерстор
-      this.props.callToGoogleCalendar()
-    
 }
 addingANewEvent = (e) =>{
   const { value, name } = e.target
@@ -112,7 +109,6 @@ const mapDispatchToProps = (dispatch) => {
 
   return{
     loadEventToFirebase: (eventsArray) => {dispatch(loadEventToFirebase(eventsArray))},
-    callToGoogleCalendar: () => {dispatch(callToGoogleCalendar())},
     addQuickEventToCAlendar: (addEventData) => {dispatch(addQuickEventToCAlendar(addEventData))},
     clearFirestoreStore: (ourClearStorageInfoKeys) => {dispatch(clearFirestoreStore(ourClearStorageInfoKeys))}
   }
