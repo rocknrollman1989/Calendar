@@ -1,20 +1,20 @@
-import React from 'react'
-import InfoCell from './infoCell'
-import DaysName from './daysOfTheWeek'
+import React from 'react';
+import InfoCell from './infoCell';
+import DaysName from './daysOfTheWeek';
 
  const CalendarTabble = ({dateFns, todayState}) => {
 
-    const monthStart = dateFns.startOfMonth(todayState)
-    const monthEnd = dateFns.endOfMonth(monthStart)
-    const startDate = dateFns.startOfWeek(monthStart, {weekStartsOn: 1})
-    const endDate = dateFns.endOfWeek(monthEnd)
+    const monthStart = dateFns.startOfMonth(todayState);
+    const monthEnd = dateFns.endOfMonth(monthStart);
+    const startDate = dateFns.startOfWeek(monthStart, {weekStartsOn: 1});
+    const endDate = dateFns.endOfWeek(monthEnd);
 
-    const dateFormat = 'D'
-    const rows = []
+    const dateFormat = 'D';
+    const rows = [];
 
     let days = [];
     let day = startDate;
-    let ourDate = "";
+    let ourDate = '';
 
     const CalendarTable = () =>{
 
@@ -29,22 +29,22 @@ import DaysName from './daysOfTheWeek'
               day = dateFns.addDays(day, 1);
             }
             rows.push(
-            <div  key={day} className='calendar-week'>{days}</div>  
+            <div  key={day} className='calendar-week'>{days}</div>
                 );
             days = [];
           }
 
-        return rows
-    }
+        return rows;
+    };
 
-        return(
+        return (
             <>
             <div className='calendar_days'>
                 <DaysName props={{dateFns, todayState}}/>
                 <CalendarTable/>
             </div>
             </>
-        )
-}
+        );
+};
 
-export default CalendarTabble
+export default CalendarTabble;

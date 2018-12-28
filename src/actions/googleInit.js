@@ -1,5 +1,5 @@
-import { API_KEY, CLIENT_ID, DISCOVERY_DOCS, SCOPES} from '../config/google_const'
-const gapi = window.gapi
+import { API_KEY, CLIENT_ID, DISCOVERY_DOCS, SCOPES} from '../config/google_const';
+const gapi = window.gapi;
 
 export const initClient = () => {
 
@@ -17,15 +17,15 @@ export const initClient = () => {
     }, function(error) {
        console.log(JSON.stringify(error, null, 2));
     });
-  }
+  };
 
 const updateSigninStatus = (isSignedIn) => {
     if (isSignedIn) {
         listUpcomingEvents();
     } else {
-    console.log('!!!')
+    console.log('!!!');
     }
-}
+};
 
 function listUpcomingEvents() {
     gapi.client.calendar.events.list({
@@ -38,33 +38,33 @@ function listUpcomingEvents() {
     }).then(function(response) {
     //проверка событий на будующее
       var events = response.result.items;
-      console.log(events) 
+      console.log(events);
 
-      someNew()
+      someNew();
 
     });
   }
 
 export const handleClientLoad = () => {
 
-    gapi.load('client:auth2', initClient);    
-}
+    gapi.load('client:auth2', initClient);
+};
 
 function someNew(){
 
-for(let i=0; i<localStorage.length; i++){
-let key = localStorage.key(i)
-let returnObj = JSON.parse(localStorage.getItem(key))
+for (let i = 0; i < localStorage.length; i++){
+let key = localStorage.key(i);
+let returnObj = JSON.parse(localStorage.getItem(key));
 
         let event = {
             'summary': returnObj.ourEvent || '' ,
             'location': 'Там дэ нас нэма',
             'description':  returnObj.ourDescription || '' ,
             'start': {
-            'date': `2019-12-30`,
+            'date': '2019-12-30',
             },
             'end': {
-            'date': `2019-12-30`,
+            'date': '2019-12-30',
             },
         };
     var request = gapi.client.calendar.events.insert({
