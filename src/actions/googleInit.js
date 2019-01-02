@@ -47,7 +47,7 @@ function listUpcomingEvents() {
 
 export const handleClientLoad = () => {
 
-    gapi.load('client:auth2', initClient);
+    window.gapi.load('client:auth2', initClient);
 };
 
 function someNew(){
@@ -61,10 +61,10 @@ let returnObj = JSON.parse(localStorage.getItem(key));
             'location': 'Там дэ нас нэма',
             'description':  returnObj.ourDescription || '' ,
             'start': {
-            'date': '2019-12-30',
+            'date': returnObj.keyDateForUser,
             },
             'end': {
-            'date': '2019-12-30',
+            'date': returnObj.keyDateForUser,
             },
         };
     var request = gapi.client.calendar.events.insert({

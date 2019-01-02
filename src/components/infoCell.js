@@ -23,7 +23,7 @@ class InfoCell extends React.Component{
     componentDidMount = () => {
         const { dateFns, day } = this.props;
 
-        let keyDate = dateFns.format(day,'MDD');
+        let keyDate = dateFns.format(day,'YYYY-MM-DD');
         let returnObj = JSON.parse(localStorage.getItem(keyDate));
             if (returnObj){
                 this.setState({ ourEvent: returnObj.ourEvent,
@@ -78,8 +78,8 @@ class InfoCell extends React.Component{
 
     onDeletData = () => {
         const { dateFns, day } = this.props;
-        let keyDate = dateFns.format(day,'MDD');
-        let keyDateForUser = dateFns.format(day,'M-DD');
+        let keyDate = dateFns.format(day,'YYYY-MM-DD');
+        let keyDateForUser = dateFns.format(day,'YYYY-MM-DD');
         this.setState({ ourEvent: '',
                         namesOfPeople: '',
                         ourDescription: '',
@@ -99,8 +99,8 @@ class InfoCell extends React.Component{
 
         const { ourEvent, namesOfPeople, ourDescription } = this.state;
         const { dateFns, day } = this.props;
-        let keyDate = dateFns.format(day,'MDD');
-        let keyDateForUser = dateFns.format(day,'M-DD');
+        let keyDate = dateFns.format(day,'YYYY-MM-DD');
+        let keyDateForUser = dateFns.format(day,'YYYY-MM-DD');
         this.setState({ ourEvent: ourEvent,
                         namesOfPeople: namesOfPeople,
                         ourDescription: ourDescription,

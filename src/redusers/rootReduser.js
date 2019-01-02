@@ -30,6 +30,7 @@ switch (action.type){
         );
         return {
             ...state,
+            statePopupIsOpen: false,
             events: [ ...ourEventsUpload, action.data]
         };
     case 'ERROR_A_NEW_EVENT_ADD':
