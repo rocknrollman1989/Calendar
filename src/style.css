@@ -7,7 +7,23 @@
     flex-direction: row;
     justify-content: space-around;
     padding: 20px 0;
-    background: burlywood; }
+    background: burlywood;
+    align-items: center; }
+    .calendar-wrapper .calendar-header button {
+      height: 35px;
+      padding: 0px 10px;
+      border-radius: 10px; }
+    .calendar-wrapper .calendar-header .header-calendar-auth-google {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center; }
+      .calendar-wrapper .calendar-header .header-calendar-auth-google button {
+        height: 35px;
+        padding: 0px 10px;
+        border-radius: 10px; }
+      .calendar-wrapper .calendar-header .header-calendar-auth-google p {
+        margin: 0; }
     .calendar-wrapper .calendar-header .all-search-events {
       position: absolute;
       background: #e98930;
