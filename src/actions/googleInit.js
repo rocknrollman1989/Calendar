@@ -36,9 +36,6 @@ function listUpcomingEvents() {
       'maxResults': 10,
       'orderBy': 'startTime'
     }).then(function(response) {
-    //проверка событий на будующее
-      var events = response.result.items;
-      console.log(events);
 
       someNew();
 

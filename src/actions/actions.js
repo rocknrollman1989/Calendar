@@ -1,3 +1,4 @@
+import { dateParse } from './dateParse';
 const POPUP_OPEN = 'POPUP_OPEN';
 const POPUP_CLOSE = 'POPUP_CLOSE';
 const ADD_A_NEW_EVENT_TO_CALENDAR = 'ADD_A_NEW_EVENT_TO_CALENDAR';
@@ -84,28 +85,17 @@ export const loadEventToFirebase = (eventsArray) => {
 };
 //быстрое добавление события
 export const addQuickEventToCAlendar = (addEventData) => {
-    //парсим дату - 4 числа
-    let ourNumberToFind = addEventData.split('');
-    let number = ourNumberToFind.filter((elem) => {
-        return !Number.isNaN(elem);
-    });
-    //clean " "
-    let keyDate = [...number];
-    keyDate = keyDate.filter((elem) => { return elem !== '';});
-    let keyDateForComponent = Number(keyDate.slice(0,4).join(''));
-    number.splice(2,0,'-');
-    let keyDateForUser = number.slice(0,5).join('');
-    //Парсим Эвент-слова
-    let words = addEventData.replace(/([0-9]*)/, '');
+
+    let dateEvent = dateParse(addEventData);
+    let ourEvent = addEventData.match(/[^\d\- ]/g).join('');
 
     let saveEventCalendar = {
-        ourEvent: words,
-        keyDateForUser: keyDateForUser,
-        keyDate: keyDateForComponent
+        ourEvent: ourEvent,
+        keyDateForUser: dateEvent,
     };
 
     let memoryObj = JSON.stringify(saveEventCalendar);
-    localStorage.setItem( keyDateForComponent , memoryObj );
+    localStorage.setItem( dateEvent , memoryObj );
 
     return getNewEventForCalendar(saveEventCalendar);
 };
