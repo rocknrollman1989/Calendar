@@ -4,6 +4,7 @@ import CalendarTabble from './components/calendarTabble';
 import dateFns from 'date-fns';
 import CalendarHeader from './components/calendarHeader';
 import { connect } from 'react-redux';
+import { searchOurEvents } from './helpers/validateForm';
 import { loadEventToFirebase, addQuickEventToCAlendar, clearFirestoreStore } from './actions/actions';
 
 
@@ -11,7 +12,6 @@ class App extends Component {
 
 state = {
 todayDate: new Date(),
-searchEvent: '',
 shortEventDescr: '',
 ourSearchEventsDisplay: []
 
@@ -42,22 +42,14 @@ addAEventToCAlendar = () => {
 
 searchEvents = (e) => {
   const { value, name } = e.target;
-  this.setState({ [name]: value });
+  this.setState({ [name]: value },
+    () => {
+      const { events } = this.props;
+      this.setState({ ourSearchEventsDisplay: searchOurEvents(value, events)});
+    }
+  );
 
-  const { events } = this.props;
-  const { searchEvent } = this.state;
-  let textToFind = searchEvent;
-  const ourSearchEvents = [];
-  const regExpToFind = new RegExp(textToFind.replace(/[.{}()[\]?*+^$]/, '\\\\$1'), 'gmi');
-    events.filter((item) => {
-        return Object.keys(item).some((key) => {
-            if (regExpToFind.test(item[key])){
-               return ourSearchEvents.push(item);
-              }
-            return false;
-           });
-      });
-  return this.setState({ ourSearchEventsDisplay:  ourSearchEvents});
+ return false;
 }
 
 prevMonth = () =>{

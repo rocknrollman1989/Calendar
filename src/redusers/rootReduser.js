@@ -48,6 +48,7 @@ switch (action.type){
         );
         return {
             ...state,
+            statePopupIsOpen: false,
             events: ourEvents
         };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import InputPopPup from './inputPopPup';
 import { connect } from 'react-redux';
+import { validateFormForEvent } from '../helpers/validateForm';
 import { getNewEventForCalendar, deleteEventfromcalendar, openPopupState, closePopupState } from '../actions/actions';
 
 class InfoCell extends React.Component{
@@ -14,8 +15,6 @@ class InfoCell extends React.Component{
             keyDateInfo: '',
             popupIsOpen: false,
             onActiveButton: false,
-            ourEventValid: false,
-            ourDescriptionValid: false,
 
         };
     }
@@ -32,7 +31,6 @@ class InfoCell extends React.Component{
                                 keyDateInfo: keyDate,
                                 });
             }
-            // console.log(keyDate)
     }
 
     closePopup = () => {
@@ -48,32 +46,12 @@ class InfoCell extends React.Component{
     handleChange = (e) => {
         const { value, name } = e.target;
         this.setState({[name] : value},
-            () => { this.validateForm(name, value);});
-
-    }
-
-    validateForm = (fieldName, value) => {
-    const { ourEvent, ourDescription, ourEventValid, ourDescriptionValid  } = this.state;
-
-        switch (fieldName){
-
-        case 'ourEvent':
-            if (ourEvent.length > 2){
-                this.setState({ourEventValid: true});
-            }
-             break;
-        case 'ourDescription':
-            if (ourDescription.length > 3){
-                this.setState({ourDescriptionValid: true});
-            }
-            break;
-        default:
-        }
-
-        if (ourEventValid && ourDescriptionValid){
-           return this.setState({onActiveButton: true});
-        }
-    return;
+            () => {
+                const { ourEvent, ourDescription } = this.state;
+                validateFormForEvent(ourEvent, ourDescription) ?
+                this.setState({onActiveButton: true}) :
+                this.setState({onActiveButton: false});
+        });
     }
 
     onDeletData = () => {
