@@ -1,4 +1,4 @@
-import { dateParse } from './dateParse';
+import { dateParse } from '../helpers/dateParse';
 const POPUP_OPEN = 'POPUP_OPEN';
 const POPUP_CLOSE = 'POPUP_CLOSE';
 const ADD_A_NEW_EVENT_TO_CALENDAR = 'ADD_A_NEW_EVENT_TO_CALENDAR';
@@ -58,8 +58,8 @@ export const deleteEventfromcalendar = (deleteId) => {
 export const clearFirestoreStore = (ourClearStorageInfoKeys) => {
     return ( dispatch, getState, { getFirestore } ) => {
         const firestore = getFirestore();
-        ourClearStorageInfoKeys.forEach((info) => {
-            firestore.collection(myEventsInCalendar).doc(`${info}`).delete()
+        ourClearStorageInfoKeys.forEach((key) => {
+            firestore.collection(myEventsInCalendar).doc(`${key}`).delete()
             .catch(
                 (error) => {
                     console.log(error);
@@ -69,33 +69,33 @@ export const clearFirestoreStore = (ourClearStorageInfoKeys) => {
     };
 };
 // догружаем отсутствующие события
-export const loadEventToFirebase = (eventsArray) => {
+export const loadEventToFirebase = (eventsObj) => {
     return ( dispatch, getState, { getFirestore}) => {
+
         const firestore = getFirestore();
-        eventsArray.forEach((event) => {
-            dispatch({ type: LOAD_STATE, event});
-            firestore.collection(myEventsInCalendar).doc(`${event.keyDateForUser}`).set({
-                ...event
-            })
-            .catch((error, message ) => {
-                console.log(error, 'это событие не прошло загрузку: ', message );
-            });
+        const { event } = eventsObj;
+        dispatch({ type: LOAD_STATE, event});
+        firestore.collection(myEventsInCalendar).doc(`${eventsObj.key}`).set({
+            ...event
+        })
+        .catch((error, message ) => {
+            console.log(error, 'это событие не прошло загрузку: ', message );
         });
     };
 };
 //быстрое добавление события
 export const addQuickEventToCAlendar = (addEventData) => {
 
-    let dateEvent = dateParse(addEventData);
-    let ourEvent = addEventData.match(/[^\d\- ]/g).join('');
+    // let dateEvent = dateParse(addEventData);
+    // let ourEvent = addEventData.match(/[^\d\- ]/g).join('');
 
-    let saveEventCalendar = {
-        ourEvent: ourEvent,
-        keyDateForUser: dateEvent,
-    };
+    // let saveEventCalendar = {
+    //     ourEvent: ourEvent,
+    //     keyDateForUser: dateEvent,
+    // };
 
-    let memoryObj = JSON.stringify(saveEventCalendar);
-    localStorage.setItem( dateEvent , memoryObj );
+    // let memoryObj = JSON.stringify(saveEventCalendar);
+    // localStorage.setItem( dateEvent , memoryObj );
 
-    return getNewEventForCalendar(saveEventCalendar);
+    // return getNewEventForCalendar(saveEventCalendar);
 };

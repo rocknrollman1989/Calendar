@@ -10,34 +10,31 @@ import { loadEventToFirebase, addQuickEventToCAlendar, clearFirestoreStore } fro
 
 class App extends Component {
 
-state = {
-todayDate: new Date(),
-shortEventDescr: '',
-ourSearchEventsDisplay: []
-
-}
+        state = {
+        todayDate: new Date(),
+        shortEventDescr: '',
+        ourSearchEventsDisplay: [],
+        searchEvent: ''
+        }
 
 componentDidMount = () => {
-  // забираем эвенты из локала
-      const ourActionInfo = [];
+    // забираем эвенты из локала
       for (let i = 0; i < localStorage.length; i++){
       let key = localStorage.key(i);
-      let returnObj = JSON.parse(localStorage.getItem(key));
-      ourActionInfo.push(returnObj);
+      let event = JSON.parse(localStorage.getItem(key));
+      this.props.loadEventToFirebase({event, key});   // обновляем стэйт при загрузке + обновляем фаерстор
     }
-      this.props.loadEventToFirebase(ourActionInfo); // обновляем стэйт при загрузке + обновляем фаерстор
 }
+
 addingANewEvent = (e) =>{
   const { value, name } = e.target;
   this.setState({[name]: value });
 }
 
 addAEventToCAlendar = () => {
-  this.setState({shortEventDescr: this.state.shortEventDescr});
-
-  this.props.addQuickEventToCAlendar(this.state.shortEventDescr);
-
-  return  this.setState({shortEventDescr: ''});
+  // this.setState({shortEventDescr: this.state.shortEventDescr});
+  // this.props.addQuickEventToCAlendar(this.state.shortEventDescr);
+  // return  this.setState({shortEventDescr: ''});
 }
 
 searchEvents = (e) => {
@@ -65,16 +62,18 @@ nextMonth = () =>{
 }
 
 clearLocalStorage = () => {
-  const ourClearStorageInfoKeys = [];
-      for (let i = 0; i < localStorage.length; i++){
-      let key = localStorage.key(i);
-      //find keys to clear fb
-      let returnObj = JSON.parse(localStorage.getItem(key));
-      ourClearStorageInfoKeys.push(returnObj.keyDateForUser);
-      }
-  this.props.clearFirestoreStore(ourClearStorageInfoKeys);
-
-    localStorage.clear();
+  let realyWantToClear = window.confirm('You realy want to delete your events?');
+    if (realyWantToClear){ 
+      const ourClearStorageInfoKeys = [];
+          for (let i = 0; i < localStorage.length; i++){
+          let key = localStorage.key(i);
+          //find keys to clear fb
+          ourClearStorageInfoKeys.push(key);
+          }
+      this.props.clearFirestoreStore(ourClearStorageInfoKeys);
+      localStorage.clear();
+    }
+  return;
 }
 
   render() {

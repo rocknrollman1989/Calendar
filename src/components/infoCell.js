@@ -2,6 +2,7 @@ import React from 'react';
 import InputPopPup from './inputPopPup';
 import { connect } from 'react-redux';
 import { validateFormForEvent } from '../helpers/validateForm';
+import { timeId } from '../helpers/timeId';
 import  OurEventInfo  from './ourEventInfo';
 import { getNewEventForCalendar, deleteEventfromcalendar, openPopupState, closePopupState } from '../actions/actions';
 
@@ -31,21 +32,14 @@ class InfoCell extends React.Component{
                 events.push(returnObj);
             }
         }
-        // console.log(events);
         this.setState({ eventsForADay: events});
-        // let returnObj = JSON.parse(localStorage.getItem(keyDate));
-        // console.log(localStorage)
-            // if (returnObj){
-            //     this.setState({ ourEvent: returnObj.ourEvent,
-            //                     namesOfPeople: returnObj.namesOfPeople,
-            //                     ourDescription: returnObj.ourDescription,
-            //                     keyDateInfo: keyDate,
-            //                     });
-            // }
     }
 
     closePopup = () => {
-        this.setState({popupIsOpen: false});
+        this.setState({ ourEvent: '',
+                        namesOfPeople: '',
+                        ourDescription: '',
+                        popupIsOpen: false});
         this.props.closePopupState();
         return;
     }
@@ -63,43 +57,41 @@ class InfoCell extends React.Component{
         });
     }
 
-    onDeletData = () => {
-        const { dateFns, day } = this.props;
-        let keyDate = dateFns.format(day,'YYYY-MM-DD');
-        let keyDateForUser = dateFns.format(day,'YYYY-MM-DD');
-        this.setState({ ourEvent: '',
-                        namesOfPeople: '',
-                        ourDescription: '',
-                        keyDateInfo: '',
-                        popupIsOpen: false});
-        delete localStorage[keyDate];
+    onDeleteData = (event) => {
+
+        delete localStorage[event.keyDateForUser];
 
         let deleteEvent = {
-            keyDateForUser: keyDateForUser
+            keyDateForUser: event.keyDateForUser
         };
         this.props.deleteEventfromcalendar(deleteEvent);
-
         return;
+    }
+    correctEvent = (event) => {
+        const { ourEvent, namesOfPeople, ourDescription, keyDateForUser } = event;
+        let keyDate = keyDateForUser;
+        this.props.openPopupState();
+        this.setState({ ourEvent: ourEvent,
+                        namesOfPeople: namesOfPeople,
+                        ourDescription:ourDescription,
+                        keyDateInfo: keyDate,
+                        popupIsOpen : true,
+                        onActiveButton:validateFormForEvent(ourEvent, ourDescription)
+                        });
     }
 
     onCorrectData = () => {
 
-        const { ourEvent, namesOfPeople, ourDescription } = this.state;
+        const { ourEvent, namesOfPeople, ourDescription, keyDateInfo} = this.state;
         const { dateFns, day } = this.props;
-        let keyDate = `${dateFns.format(day,'YYYY-MM-DD')}-${new Date().getMilliseconds()}`; // !!!!
-        let keyDateForUser = dateFns.format(day,'YYYY-MM-DD');
-        this.setState({ ourEvent: ourEvent,
-                        namesOfPeople: namesOfPeople,
-                        ourDescription: ourDescription,
-                        keyDateInfo: keyDate,
-                        popupIsOpen: false});
+        let keyDate = keyDateInfo || `${dateFns.format(day,'YYYY-MM-DD')}-${timeId()}`;
+        this.setState({ popupIsOpen: false });
 
         let saveEventCalendar = {
             ourEvent: ourEvent,
             namesOfPeople: namesOfPeople,
             ourDescription: ourDescription,
-            keyDateForUser: keyDateForUser
-
+            keyDateForUser: keyDate
         };
 
         let memoryObj = JSON.stringify(saveEventCalendar);
@@ -122,10 +114,10 @@ class InfoCell extends React.Component{
                 closePopup = {this.closePopup}
                 onCorrectData = {this.onCorrectData}
                 handleChange = {this.handleChange}
-                onDeletData = {this.onDeletData}
                 /> : null }
-                <div onClick = {statePopupIsOpen ? null : this.openPopup} className='calendare-day-info'>
-                   <OurEventInfo eventsForADay={eventsForADay}/>
+                <div className='calendare-day-info'>
+                    <button onClick = {statePopupIsOpen ? null : this.openPopup}>Add event</button>
+                    <OurEventInfo eventsForADay={eventsForADay} onDeleteData = {this.onDeleteData} correctEvent={this.correctEvent}/>
                 </div>
             </div>
 

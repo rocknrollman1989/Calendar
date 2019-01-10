@@ -13,7 +13,7 @@ const CalendarHeader = ({props, clearLocalStorage, searchEvents, addingANewEvent
                 <p>{item.ourEvent}</p>
                 <p>{item.namesOfPeople}</p>
                 <p>{item.ourDescription}</p>
-                <p>{item.keyDateForUser}</p>
+                <p>{item.keyDateForUser.slice(0,10)}</p>
             </div>
         );
     })  : null;
