@@ -2,6 +2,7 @@ import React from 'react';
 import InputPopPup from './inputPopPup';
 import { connect } from 'react-redux';
 import { validateFormForEvent } from '../helpers/validateForm';
+import  OurEventInfo  from './ourEventInfo';
 import { getNewEventForCalendar, deleteEventfromcalendar, openPopupState, closePopupState } from '../actions/actions';
 
 class InfoCell extends React.Component{
@@ -9,6 +10,7 @@ class InfoCell extends React.Component{
         super(props);
 
          this.state = {
+            eventsForADay: [],
             ourEvent: '',
             namesOfPeople: '',
             ourDescription: '' ,
@@ -21,16 +23,25 @@ class InfoCell extends React.Component{
 
     componentDidMount = () => {
         const { dateFns, day } = this.props;
-
+        let events = [];
         let keyDate = dateFns.format(day,'YYYY-MM-DD');
-        let returnObj = JSON.parse(localStorage.getItem(keyDate));
-            if (returnObj){
-                this.setState({ ourEvent: returnObj.ourEvent,
-                                namesOfPeople: returnObj.namesOfPeople,
-                                ourDescription: returnObj.ourDescription,
-                                keyDateInfo: keyDate,
-                                });
+        for (let key in localStorage) {
+            if (key.indexOf(keyDate) !== -1){
+                let returnObj = JSON.parse(localStorage.getItem(key));
+                events.push(returnObj);
             }
+        }
+        // console.log(events);
+        this.setState({ eventsForADay: events});
+        // let returnObj = JSON.parse(localStorage.getItem(keyDate));
+        // console.log(localStorage)
+            // if (returnObj){
+            //     this.setState({ ourEvent: returnObj.ourEvent,
+            //                     namesOfPeople: returnObj.namesOfPeople,
+            //                     ourDescription: returnObj.ourDescription,
+            //                     keyDateInfo: keyDate,
+            //                     });
+            // }
     }
 
     closePopup = () => {
@@ -48,9 +59,7 @@ class InfoCell extends React.Component{
         this.setState({[name] : value},
             () => {
                 const { ourEvent, ourDescription } = this.state;
-                validateFormForEvent(ourEvent, ourDescription) ?
-                this.setState({onActiveButton: true}) :
-                this.setState({onActiveButton: false});
+                this.setState({onActiveButton:validateFormForEvent(ourEvent, ourDescription)});
         });
     }
 
@@ -77,7 +86,7 @@ class InfoCell extends React.Component{
 
         const { ourEvent, namesOfPeople, ourDescription } = this.state;
         const { dateFns, day } = this.props;
-        let keyDate = dateFns.format(day,'YYYY-MM-DD');
+        let keyDate = `${dateFns.format(day,'YYYY-MM-DD')}-${new Date().getMilliseconds()}`; // !!!!
         let keyDateForUser = dateFns.format(day,'YYYY-MM-DD');
         this.setState({ ourEvent: ourEvent,
                         namesOfPeople: namesOfPeople,
@@ -102,7 +111,7 @@ class InfoCell extends React.Component{
     render() {
 
         const { ourDate, statePopupIsOpen } = this.props;
-        const { ourEvent, namesOfPeople, ourDescription, popupIsOpen } = this.state;
+        const { eventsForADay, popupIsOpen } = this.state;
 
         return (
             <div>
@@ -116,9 +125,7 @@ class InfoCell extends React.Component{
                 onDeletData = {this.onDeletData}
                 /> : null }
                 <div onClick = {statePopupIsOpen ? null : this.openPopup} className='calendare-day-info'>
-                    <h3>{ourEvent}</h3>
-                    <h4>{namesOfPeople}</h4>
-                    <p>{ourDescription}</p>
+                   <OurEventInfo eventsForADay={eventsForADay}/>
                 </div>
             </div>
 
