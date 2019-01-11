@@ -115,7 +115,7 @@ class InfoCell extends React.Component{
                 onCorrectData = {this.onCorrectData}
                 handleChange = {this.handleChange}
                 /> : null }
-                <div className='calendare-day-info'>
+                <div className='calendare-day-info' >
                     <button onClick = {statePopupIsOpen ? null : this.openPopup}>Add event</button>
                     <OurEventInfo eventsForADay={eventsForADay} onDeleteData = {this.onDeleteData} correctEvent={this.correctEvent}/>
                 </div>

@@ -27,25 +27,32 @@ class ShortEventAdd extends React.Component{
             let eventToAdd = {
                 ourDayDate, ourMonthDate, ourEventToAdd
             };
-        // this.setState({shortEventDescr: this.state.shortEventDescr});
         this.props.addQuickEventToCAlendar(eventToAdd);
+        this.setState({ ourDayDate: '',
+                        ourMonthDate: '',
+                        ourEventToAdd: '',
+                        error: '',
+                        isActive: true });
+
         return;
       }
     render() {
 
         return (
         <div className="quick-add-header">
-            <form>
+            <div className='quick-add-header-message'>
                 <p>Add your event easy!:)</p>
-                <p>{this.state.error}</p>
+                <p className='error'>{this.state.error}</p>
+            </div>
+            <form>
                 <label>
-                    <input type="text" value={this.ourDayDate} maxLength={2} name='ourDayDate' ref='ourDayDate' onChange={this.inputOnChange} placeholder='date'/>
+                    <input type="text" value={this.state.ourDayDate} maxLength={2} name='ourDayDate' ref='ourDayDate' onChange={this.inputOnChange} placeholder='date' style={{width: '50px'}}/>
                 </label>
                 <label>
-                    <input type="text" value={this.ourMonthDate} maxLength={2} name='ourMonthDate' ref='ourMonthDate' onChange={this.inputOnChange} placeholder='month'/>
+                    <input type="text" value={this.state.ourMonthDate} maxLength={2} name='ourMonthDate' ref='ourMonthDate' onChange={this.inputOnChange} placeholder='month' style={{width: '50px'}}/>
                 </label>
                 <label>
-                    <input type="text" value={this.ourEventToAdd}  name='ourEventToAdd' ref='ourEventToAdd' onChange={this.inputOnChange} placeholder='event'/>
+                    <input type="text" value={this.state.ourEventToAdd}  name='ourEventToAdd' ref='ourEventToAdd' onChange={this.inputOnChange} placeholder='event'/>
                 </label>
                 <button onClick={this.addAEventToCAlendar} disabled={this.state.isActive}>Add a event!</button>
             </form>

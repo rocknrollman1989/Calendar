@@ -21,15 +21,17 @@ const CalendarHeader = ({props, clearLocalStorage, searchEvents }) => {
 
     return (
         <div className='calendar-header'>
-        <GoogleInitialComponent/>
-        <ShortEventAdd/>
-            <button onClick={()=>{clearLocalStorage();}}>Clear calendar</button>
-            <label>
-                search Event
-                <input type="text" value={searchEvent} name='searchEvent' onChange={(e)=>{searchEvents(e);}}/>
-            </label>
-            <div className='all-search-events'>
-                {showSearchEvents}
+            <GoogleInitialComponent/>
+            <ShortEventAdd/>
+            <div className='header-search-block'>
+                <button onClick={()=>{clearLocalStorage();}}>Clear calendar</button>
+                <label>
+                    search Event
+                    <input type="text" value={searchEvent} name='searchEvent' onChange={(e)=>{searchEvents(e);}}/>
+                </label>
+                <div className='all-search-events'>
+                    {showSearchEvents}
+                </div>
             </div>
         </div>
     );

@@ -48,28 +48,33 @@ export const handleClientLoad = () => {
 };
 
 function someNew(){
-
-for (let i = 0; i < localStorage.length; i++){
-let key = localStorage.key(i);
-let returnObj = JSON.parse(localStorage.getItem(key));
-
-        let event = {
-            'summary': returnObj.ourEvent || '' ,
-            'location': 'Там дэ нас нэма',
-            'description':  returnObj.ourDescription || '' ,
-            'start': {
-            'date': returnObj.keyDateForUser.slice(0, 10),
-            },
-            'end': {
-            'date': returnObj.keyDateForUser.slice(0,10)
-            },
-        };
-    var request = gapi.client.calendar.events.insert({
-    'calendarId': 'primary',
-    'resource': event
-    });
+if (localStorage.length > 0 ) {
+    for (let i = 0; i < localStorage.length; i++){
+    let key = localStorage.key(i);
+    let returnObj = JSON.parse(localStorage.getItem(key));
+    // console.log(returnObj.keyDateForUser.slice(0, 10));
+            let event = {
+                'summary': returnObj.ourEvent || '' ,
+                'location': 'Там дэ нас нэма',
+                'description':  returnObj.ourDescription || '' ,
+                'start': {
+                'date': returnObj.keyDateForUser.slice(0, 10),
+                },
+                'end': {
+                'date': returnObj.keyDateForUser.slice(0,10)
+                },
+            };
+        var request = gapi.client.calendar.events.insert({
+        'calendarId': 'primary',
+        'resource': event
+        });
 }
+
+window.alert('Ready!');
 request.execute(function(event) {
 // ('Event created: ' + event.htmlLink);
-});
+});}
+else {
+    window.alert('LocalStorage is empty');
+    }
 }
