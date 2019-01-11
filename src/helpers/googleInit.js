@@ -58,10 +58,10 @@ let returnObj = JSON.parse(localStorage.getItem(key));
             'location': 'Там дэ нас нэма',
             'description':  returnObj.ourDescription || '' ,
             'start': {
-            'date': returnObj.keyDateForUser,
+            'date': returnObj.keyDateForUser.slice(0, 10),
             },
             'end': {
-            'date': returnObj.keyDateForUser,
+            'date': returnObj.keyDateForUser.slice(0,10)
             },
         };
     var request = gapi.client.calendar.events.insert({

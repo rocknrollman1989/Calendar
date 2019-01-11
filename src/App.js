@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import CalendarSelecter from './components/calendarSelect';
-import CalendarTabble from './components/calendarTabble';
 import dateFns from 'date-fns';
-import CalendarHeader from './components/calendarHeader';
 import { connect } from 'react-redux';
 import { searchOurEvents } from './helpers/validateForm';
 import { loadEventToFirebase, addQuickEventToCAlendar, clearFirestoreStore } from './actions/actions';
+import CalendarHeader from './components/CalendarHeader';
+import CalendarSelecter from './components/CalendarSelect';
+import CalendarTabble from './components/CalendarTabble';
+
 
 
 class App extends Component {
 
         state = {
         todayDate: new Date(),
-        shortEventDescr: '',
         ourSearchEventsDisplay: [],
         searchEvent: ''
         }
@@ -24,17 +24,6 @@ componentDidMount = () => {
       let event = JSON.parse(localStorage.getItem(key));
       this.props.loadEventToFirebase({event, key});   // обновляем стэйт при загрузке + обновляем фаерстор
     }
-}
-
-addingANewEvent = (e) =>{
-  const { value, name } = e.target;
-  this.setState({[name]: value });
-}
-
-addAEventToCAlendar = () => {
-  // this.setState({shortEventDescr: this.state.shortEventDescr});
-  // this.props.addQuickEventToCAlendar(this.state.shortEventDescr);
-  // return  this.setState({shortEventDescr: ''});
 }
 
 searchEvents = (e) => {
@@ -63,7 +52,7 @@ nextMonth = () =>{
 
 clearLocalStorage = () => {
   let realyWantToClear = window.confirm('You realy want to delete your events?');
-    if (realyWantToClear){ 
+    if (realyWantToClear){
       const ourClearStorageInfoKeys = [];
           for (let i = 0; i < localStorage.length; i++){
           let key = localStorage.key(i);
@@ -80,7 +69,7 @@ clearLocalStorage = () => {
 
     return (
     <div className="calendar-wrapper">
-      <CalendarHeader props={this.state} clearLocalStorage={this.clearLocalStorage} searchEvents={this.searchEvents} addingANewEvent={this.addingANewEvent} addAEventToCAlendar={this.addAEventToCAlendar}/>
+      <CalendarHeader props={this.state} clearLocalStorage={this.clearLocalStorage} searchEvents={this.searchEvents}/>
       <CalendarSelecter dateFns={dateFns} todayState={this.state.todayDate} prevMonth={this.prevMonth} nextMonth={this.nextMonth}/>
       <CalendarTabble dateFns={dateFns} todayState={this.state.todayDate}/>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import InfoCell from './infoCell';
-import DaysName from './daysOfTheWeek';
+import InfoCell from './InfoCell';
+import DaysName from './DaysOfTheWeek';
 
  const CalendarTabble = ({dateFns, todayState}) => {
 

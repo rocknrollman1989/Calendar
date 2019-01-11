@@ -1,9 +1,9 @@
 import React from 'react';
-import InputPopPup from './inputPopPup';
+import OurEventInfo  from './OurEventInfo';
+import InputPopPup from './InputPopPup';
 import { connect } from 'react-redux';
 import { validateFormForEvent } from '../helpers/validateForm';
 import { timeId } from '../helpers/timeId';
-import  OurEventInfo  from './ourEventInfo';
 import { getNewEventForCalendar, deleteEventfromcalendar, openPopupState, closePopupState } from '../actions/actions';
 
 class InfoCell extends React.Component{
@@ -76,7 +76,7 @@ class InfoCell extends React.Component{
                         ourDescription:ourDescription,
                         keyDateInfo: keyDate,
                         popupIsOpen : true,
-                        onActiveButton:validateFormForEvent(ourEvent, ourDescription)
+                        onActiveButton: validateFormForEvent(ourEvent, ourDescription)
                         });
     }
 

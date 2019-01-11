@@ -1,5 +1,5 @@
 import React from 'react';
-import { handleClientLoad } from '../actions/googleInit';
+import { handleClientLoad } from '../helpers/googleInit';
 
 export default class GoogleInitialComponent extends React.Component{
 

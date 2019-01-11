@@ -1,4 +1,4 @@
-import { dateParse } from '../helpers/dateParse';
+import { dateParse } from '../helpers/validateForm';
 const POPUP_OPEN = 'POPUP_OPEN';
 const POPUP_CLOSE = 'POPUP_CLOSE';
 const ADD_A_NEW_EVENT_TO_CALENDAR = 'ADD_A_NEW_EVENT_TO_CALENDAR';
@@ -86,16 +86,14 @@ export const loadEventToFirebase = (eventsObj) => {
 //быстрое добавление события
 export const addQuickEventToCAlendar = (addEventData) => {
 
-    // let dateEvent = dateParse(addEventData);
-    // let ourEvent = addEventData.match(/[^\d\- ]/g).join('');
+    let dateEvent = dateParse(addEventData.ourDayDate, addEventData.ourMonthDate );
 
-    // let saveEventCalendar = {
-    //     ourEvent: ourEvent,
-    //     keyDateForUser: dateEvent,
-    // };
+    let saveEventCalendar = {
+        ourDescription: addEventData.ourEventToAdd,
+        keyDateForUser: dateEvent,
+    };
 
-    // let memoryObj = JSON.stringify(saveEventCalendar);
-    // localStorage.setItem( dateEvent , memoryObj );
-
-    // return getNewEventForCalendar(saveEventCalendar);
+    let memoryObj = JSON.stringify(saveEventCalendar);
+    localStorage.setItem( dateEvent , memoryObj );
+    return getNewEventForCalendar(saveEventCalendar);
 };

@@ -1,11 +1,12 @@
 import React from 'react';
-import GoogleInitialComponent from './googleInitialize';
+import GoogleInitialComponent from './GoogleInitialize';
+import ShortEventAdd from './ShortEventAdd';
 
 
 
-const CalendarHeader = ({props, clearLocalStorage, searchEvents, addingANewEvent, addAEventToCAlendar}) => {
+const CalendarHeader = ({props, clearLocalStorage, searchEvents }) => {
 
-    const { ourSearchEventsDisplay, searchEvent, shortEventDescr } = props;
+    const { ourSearchEventsDisplay, searchEvent } = props;
 
     const showSearchEvents = ourSearchEventsDisplay ? ourSearchEventsDisplay.map((item, i)=>{
         return (
@@ -21,11 +22,7 @@ const CalendarHeader = ({props, clearLocalStorage, searchEvents, addingANewEvent
     return (
         <div className='calendar-header'>
         <GoogleInitialComponent/>
-            <label>
-                quick add of event
-                <input type="text" value={shortEventDescr} name='shortEventDescr' onChange={(e)=>{addingANewEvent(e);}} placeholder='add date(month-day), event'/>
-            </label>
-            <button onClick={()=>{addAEventToCAlendar();}}>Add a event!</button>
+        <ShortEventAdd/>
             <button onClick={()=>{clearLocalStorage();}}>Clear calendar</button>
             <label>
                 search Event
