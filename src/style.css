@@ -52,10 +52,14 @@
           margin: 0 10px;
           width: 200px;
           border: none;
-          background: rgba(32, 175, 195, 0.5);
+          background: rgba(32, 175, 195, 0);
           color: black;
           font-weight: bold;
-          border-bottom: 1px solid #20afc3; }
+          border-bottom: 1px solid #20afc3;
+          outline: none; }
+        .calendar-wrapper .calendar-header .quick-add-header form input::-webkit-input-placeholder {
+          font-weight: bold;
+          color: #073136; }
         .calendar-wrapper .calendar-header .quick-add-header form button {
           margin-top: 10px;
           height: 35px;
@@ -151,56 +155,59 @@
         width: 14.28%;
         border: 0.2px solid rgba(32, 175, 195, 0.8);
         min-height: 140px; }
-        .calendar-wrapper .calendar_days .calendar-week .day .popup-container {
-          position: absolute;
-          left: 50%;
-          top: 40%;
-          margin-left: -100px;
-          background-color: #20afc3;
-          width: 200px;
-          border-radius: 15px;
-          height: 316px;
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-          z-index: 100; }
-          .calendar-wrapper .calendar_days .calendar-week .day .popup-container form {
-            margin: 20px; }
-            .calendar-wrapper .calendar_days .calendar-week .day .popup-container form label {
-              display: flex;
-              flex-direction: column; }
-          .calendar-wrapper .calendar_days .calendar-week .day .popup-container button {
+        .calendar-wrapper .calendar_days .calendar-week .day .calendare-day {
+          height: 100%; }
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .popup-container {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            margin-left: -100px;
+            background-color: #20afc3;
+            width: 200px;
+            border-radius: 15px;
+            height: 316px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            z-index: 100; }
+            .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .popup-container form {
+              margin: 20px; }
+              .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .popup-container form label {
+                display: flex;
+                flex-direction: column; }
+            .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .popup-container button {
+              margin-top: 10px;
+              height: 35px;
+              padding: 0px 10px;
+              border-radius: 10px;
+              cursor: pointer;
+              border: 0.5px solid #20afc3;
+              background: #00bcd4; }
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .calendare-day-info h3 {
+            margin: 0px;
+            font-size: 16px; }
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .calendare-day-info h4 {
+            margin: 0px;
+            font-size: 16px;
+            font-weight: normal; }
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .calendare-day-info p {
+            font-size: 12px; }
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .day-event {
+            background: #20afc3;
+            border: 0.5px solid #20afc3;
+            border-radius: 20px;
+            margin-bottom: 2px; }
+            .calendar-wrapper .calendar_days .calendar-week .day .calendare-day .day-event button {
+              border: 0.5px solid #20afc3;
+              background: #00bcd4; }
+          .calendar-wrapper .calendar_days .calendar-week .day .calendare-day button {
             margin-top: 10px;
             height: 35px;
             padding: 0px 10px;
             border-radius: 10px;
-            cursor: pointer;
             border: 0.5px solid #20afc3;
-            background: #00bcd4; }
-        .calendar-wrapper .calendar_days .calendar-week .day .calendare-day-info h3 {
-          margin: 0px;
-          font-size: 16px; }
-        .calendar-wrapper .calendar_days .calendar-week .day .calendare-day-info h4 {
-          margin: 0px;
-          font-size: 16px;
-          font-weight: normal; }
-        .calendar-wrapper .calendar_days .calendar-week .day .calendare-day-info p {
-          font-size: 12px; }
-        .calendar-wrapper .calendar_days .calendar-week .day .day-event {
-          background: #20afc3;
-          border: 0.5px solid #20afc3;
-          border-radius: 20px; }
-          .calendar-wrapper .calendar_days .calendar-week .day .day-event button {
-            border: 0.5px solid #20afc3;
-            background: #00bcd4; }
-        .calendar-wrapper .calendar_days .calendar-week .day button {
-          margin-top: 10px;
-          height: 35px;
-          padding: 0px 10px;
-          border-radius: 10px;
-          border: 0.5px solid #20afc3;
-          background: transparent;
-          cursor: pointer; }
+            background: transparent;
+            cursor: pointer; }
       .calendar-wrapper .calendar_days .calendar-week .day:hover {
         background-color: rgba(32, 175, 195, 0.8); }
 

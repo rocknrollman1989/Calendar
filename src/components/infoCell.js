@@ -101,12 +101,11 @@ class InfoCell extends React.Component{
     }
 
     render() {
-
         const { ourDate, statePopupIsOpen } = this.props;
         const { eventsForADay, popupIsOpen } = this.state;
 
         return (
-            <div>
+            <div className='calendare-day'  onClick = {statePopupIsOpen || eventsForADay.length > 0 ? null : this.openPopup }>
             <span>{ourDate}</span>
                 {popupIsOpen ?
                 <InputPopPup
@@ -116,7 +115,8 @@ class InfoCell extends React.Component{
                 handleChange = {this.handleChange}
                 /> : null }
                 <div className='calendare-day-info' >
-                    <button onClick = {statePopupIsOpen ? null : this.openPopup}>Add event</button>
+                    {eventsForADay.length > 0 ?
+                    <button onClick = {statePopupIsOpen ? null : this.openPopup} style={{marginBottom: '5px'}}>Add event</button> : null}
                     <OurEventInfo eventsForADay={eventsForADay} onDeleteData = {this.onDeleteData} correctEvent={this.correctEvent}/>
                 </div>
             </div>
