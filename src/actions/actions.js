@@ -1,4 +1,5 @@
 import { dateParse } from '../helpers/validateForm';
+
 const POPUP_OPEN = 'POPUP_OPEN';
 const POPUP_CLOSE = 'POPUP_CLOSE';
 const ADD_A_NEW_EVENT_TO_CALENDAR = 'ADD_A_NEW_EVENT_TO_CALENDAR';

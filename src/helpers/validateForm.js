@@ -19,7 +19,7 @@ export const searchOurEvents = (value, events) =>{
             if (regExpToFind.test(item[key])){
                return ourSearchEvents.push(item);
               }
-            return;
+            return ourSearchEvents;
            });
       });
     if (value === '') {return false;}

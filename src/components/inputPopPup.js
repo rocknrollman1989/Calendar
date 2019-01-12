@@ -30,7 +30,7 @@ const InputPopPup = ({closePopup, onCorrectData, props, handleChange}) => {
                     onChange ={(e)=>{handleChange(e);}}
                     placeholder="Description"/>
                 </label>
-                <input type="button" onClick={()=>{onCorrectData();}} disabled={!props.onActiveButton} value="Save" />
+                <input type='button' onClick={()=>{onCorrectData();}} disabled={!props.onActiveButton} value='Save' className='input-add-event'/>
             </form>
             <button onClick={()=>{closePopup();}}>Close</button>
         </div>

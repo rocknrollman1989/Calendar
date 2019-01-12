@@ -1,4 +1,6 @@
 import React from 'react';
+import logoCorrect from '../static/../static/correctPen.png';
+import logoDelete from '../static/delete_cross.png';
 
 const OurEventInfo = ({eventsForADay, onDeleteData, correctEvent}) => {
 
@@ -6,8 +8,8 @@ const OurEventInfo = ({eventsForADay, onDeleteData, correctEvent}) => {
     eventsForADay.map((event, i) => {
         return (
             <div className='day-event' key={i}>
-                <button onClick={() => {onDeleteData(event);}}>delete</button>
-                <button onClick={() => {correctEvent(event);}}>correct</button>
+                <button onClick={() => {onDeleteData(event);}}><img src={logoDelete} alt="Delete"/></button>
+                <button onClick={() => {correctEvent(event);}}><img src={logoCorrect} alt="Correct"/></button>
                 <h3>{event.ourEvent}</h3>
                 <h4>{event.namesOfPeople}</h4>
                 <p>{event.ourDescription}</p>

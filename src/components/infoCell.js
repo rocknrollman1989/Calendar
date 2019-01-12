@@ -105,7 +105,7 @@ class InfoCell extends React.Component{
         const { eventsForADay, popupIsOpen } = this.state;
 
         return (
-            <div className='calendare-day'  onClick = {statePopupIsOpen || eventsForADay.length > 0 ? null : this.openPopup }>
+            <div className='calendare-day'  onClick = {statePopupIsOpen || eventsForADay.length > 0 ? null : this.openPopup}>
             <span>{ourDate}</span>
                 {popupIsOpen ?
                 <InputPopPup
