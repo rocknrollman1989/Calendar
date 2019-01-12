@@ -12,9 +12,9 @@ const CalendarHeader = ({props, clearLocalStorage, searchEvents }) => {
         return (
             <div key={i} className='calendar-header-events'>
                 <p>{item.ourEvent}</p>
-                <p>{item.namesOfPeople}</p>
-                <p>{item.ourDescription}</p>
-                <p>{item.keyDateForUser.slice(0,10)}</p>
+                <p><span>Who:</span>{item.namesOfPeople}</p>
+                <p><span>What:</span>{item.ourDescription}</p>
+                <p><span>When:</span>{item.keyDateForUser.slice(0,10)}</p>
             </div>
         );
     })  : null;

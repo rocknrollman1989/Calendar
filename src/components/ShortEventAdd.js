@@ -17,7 +17,7 @@ class ShortEventAdd extends React.Component{
         const { value, name } = e.target;
         this.setState({[name]: value},
             () => {
-                this.setState({ error: quickAddEventValidation(this.refs, this.state),
+                this.setState({ error: quickAddEventValidation(this.refs, this.state, name),
                                 isActive: quickAddEventOnActive(this.state)}); });
       }
 

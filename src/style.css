@@ -91,13 +91,16 @@
       .calendar-wrapper .calendar-header .header-search-block .all-search-events {
         position: absolute;
         right: 10%;
-        top: 200px;
+        top: 115px;
         background: #20afc3;
         border-radius: 15px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center; }
+        @media screen and (max-width: 900px) {
+          .calendar-wrapper .calendar-header .header-search-block .all-search-events {
+            top: 160px; } }
         .calendar-wrapper .calendar-header .header-search-block .all-search-events .calendar-header-events {
           display: flex;
           flex-direction: column;
@@ -105,9 +108,12 @@
           align-items: center;
           width: 100%;
           border: 0.2px solid black;
-          border-radius: 15px; }
+          border-radius: 15px;
+          margin-bottom: 5px; }
           .calendar-wrapper .calendar-header .header-search-block .all-search-events .calendar-header-events p {
             margin: 0; }
+            .calendar-wrapper .calendar-header .header-search-block .all-search-events .calendar-header-events p span {
+              font-size: 10px; }
   .calendar-wrapper .calendar-months-select {
     width: 100%;
     display: flex;

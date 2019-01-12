@@ -12,13 +12,14 @@ return onActiveButton;
 export const searchOurEvents = (value, events) =>{
 
   const ourSearchEvents = [];
+
   const regExpToFind = new RegExp(value.replace(/[.{}()[\]?*+^$]/, '\\\\$1'), 'gmi');
     events.filter((item) => {
         return Object.keys(item).some((key) => {
             if (regExpToFind.test(item[key])){
                return ourSearchEvents.push(item);
               }
-            return false;
+            return;
            });
       });
     if (value === '') {return false;}
@@ -47,24 +48,19 @@ export const quickAddEventOnActive = (state) => {
     return true;
 };
 
-export const quickAddEventValidation = (refs, state) => {
-
+export const quickAddEventValidation = (refs, state, name) => {
 const { ourDayDate, ourMonthDate } = state;
 
     if (isNaN(ourDayDate) || isNaN(ourMonthDate)){
         return 'ВВедите число!';
     }
-    switch (state){
-
-        case ourDayDate:
+    switch (name){
+        case 'ourDayDate':
         if ( ourDayDate.length === 2 ){
                 refs.ourMonthDate.focus();
             }
         break;
-    default: return;
-    }
-    switch (ourMonthDate){
-        case ourMonthDate:
+        case 'ourMonthDate':
         if ( ourMonthDate.length === 2 ){
                 refs.ourEventToAdd.focus();
             }
